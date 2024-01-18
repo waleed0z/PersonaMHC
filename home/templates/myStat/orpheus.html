@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+{%load static%}
+<html lang="en">
+<head>
+    <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <div id="header">
+  <h3><div class = "logo"></div></h3>
+  </div>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Persona: mental healthcare </title>
+
+
+<nav class="menubar">
+  <div class="icon-container">
+    <img src="/static/media/bars.svg">
+   </div>
+
+   <div id="navbar">
+<ul>
+    <li><a href="">ABOUT</a></li>
+    <li><a href="">LEARN</a></li>
+    <li><a href="">THERAPY</a></li>
+    <li><a href="">GET INVOLVED</a></li>
+</ul>
+   </div>
+</nav>
+</head>
+
+<body>
+ <div class = "bg-image"></div>
+ <div id = "start">
+  <h1> YOUR MENTAL HEALTH MATTERS</h1>
+  <p>
+    Mental healthcare is just as important as physical healthcare as it determines how we behave in a society.
+     Persona is a web-based mental healthcare system aimed at helping people with mental health disorders such as anxiety, depression, bipolar disorder, ADHD, PTSD and so on.
+    </p>
+      <ul> <li><a href="{% url 'chatbot' %}">FIND HELP</a></li></ul>
+ </div>
+
+  
+
+<div id = "notes">
+  <div class = "pic-2"></div>
+  <h1>TELL YOUR STORY</h1>
+  <ul> <li><a href="{% url 'create_post' %}">BLOG</a></li></ul></div>
+
+
+  <section class="page-section" id="contact">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-8 text-center">
+          <h2 class="mt-0">Contact</h2>
+          <hr class="divider my-4" />
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-lg-4">
+          <div class="team-member team-member-primary">
+            <img class="mx-auto rounded-circle" src="/static/media/WALEED.png" alt="" />
+            <h4>Umar Ashiru</h4>
+            <p class="text-muted">Software Developer<br><a href="waleedashir6@gmail.com">Email</a></p></p>
+          </div>
+        </div>
+
+
+
+  <div id="footer">
+      <ul>
+          <li><a href="">HOME</a></li>
+          <li><a href="">JOIN US</a></li>
+          <li><a href="">GET INVOLVED</a></li>
+          <li><a href="">PARTNERS</a></li>
+        </ul>
+      <h4>&copy; 2022 Persona. All Rights Reserved.</h4>
+  </div>
+      </div>
+
+</body>
+</html>

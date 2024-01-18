@@ -1,0 +1,114 @@
+
+
+{% block content %}
+  <div class="container">
+    <div class="card">
+      <h2 class="card-header">SHARE YOUR MENTAL HEALTHCARE JOURNEY</h2>
+      <div class="card-body">
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+            <label for="name">Name or Alias</label>
+            <input type="text" name="name" class="form-control" placeholder="Enter your name or an alias" required>
+          </div>
+          <div class="form-group">
+            <label for="subject">Subject/Title</label>
+            <input type="text" name="subject" class="form-control" placeholder="Enter a subject or title for your post" required>
+          </div>
+          <div class="form-group">
+            <label for="body">Your Story</label>
+            <textarea name="body" class="form-control" rows="10" placeholder="share your story here..." required></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block scripts %}
+  <script>
+    document.querySelector('form').addEventListener('submit', function() {
+      document.querySelector('button[type="submit"]').disabled = true;
+    });
+  </script>
+
+{% endblock %}
+
+{% block styles %}
+  <style>
+    body {
+      background-color: #f5f5f5;
+    }
+    .container {
+      max-width: 2500px;
+      margin: 0 auto;
+      padding: 0px;
+    }
+    .card {
+      background-color: #e6c2b4;
+      box-shadow: 0 2px 10px #e6c2b4;
+      border-radius: 2px;
+      overflow: wrap;
+    }
+    .card-header {
+      background-color: #e6c2b4;
+      color: white;
+      font-size: 50px;
+      font-weight: 800;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      letter-spacing: 3px;
+      padding: 30px;
+      margin-bottom: 50px;
+      text-align: center;
+    }
+    .card-body {
+      padding: 20px;
+    }
+    label {
+      font-size: 20px;
+      letter-spacing: 1px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      margin-bottom: 5px;
+      display: block;
+      color: white;
+    }
+    .form-control {
+      font-size: 100%;
+      background-color: white;
+      letter-spacing: 1px;
+      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      border-radius: 1px;
+      border: none;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 50px;
+    }
+    .form-control::placeholder {
+      color: #999;
+    }
+    .btn {
+    width: 20%;
+    height: 35px;
+    font-size: 18px;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    border: 2px solid #e6c2b4;
+    transition: all 0.5s;
+    border-spacing: 50px;
+    font-size: 100%;
+    letter-spacing: 2px;
+    filter: blur(0.2px);
+    }
+    .btn-primary {
+      background-color:white;
+      color: #e6c2b4;
+    }
+    .btn-primary:hover {
+    color: darkred;
+    border: 2px solid darkred;
+    cursor: pointer;
+    transform: translate(10px);
+    filter: blur(0.5px);
+    }
+  </style>
+{% endblock %}
