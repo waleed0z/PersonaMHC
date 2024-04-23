@@ -1,24 +1,58 @@
 body{
   background-color: rgb(255, 255, 255);
 }
+ .header{
+   position: relative;
+   top: 0;
+   left: 0; right: 0;
+   background: white;
+   padding: 1rem 7%;
+   display: flex;
+   align-items: center;
+   justify-content: space-between;
+   border:3px solid #ece2de75;
+ }
 
-  h3 .logo{
-    background-image: url("/static/media/p3.png");
-    height:200px;
-    margin-top:0em;
-    background-size
-    background-position: left;
-    background-repeat: no-repeat;
-    margin-left: -15em;
-    margin-right:0em;
+ .logo{
+   display: flex;
+   height: 50px;
+   width:100px;
 
   }
-  .menubar {
-    display: flex;
-    float: right;
+.persona {
+  height:70px;
+  position:relative;
+  right: 5rem;
+}
+.icon {
+ display: flex;
+ position: relative;
+ left: 3rem;
+}
+.icon i{
+  font-size: 1.5rem;
+  cursor: pointer;
+}
 
+.icon i:hover{
+  color: black;
+}
+.navbar a {
+  height: 30px;
+  width: 20px;
+  text-decoration: none;
+  font-size: 1rem;
+  font-weight: 500;
+  margin: 1.2rem;
+  color: black;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  letter-spacing: 0.75px;
+  border: 1px solid transparent;
   }
-
+.navbar a:hover {
+    color: #e6c2b4;
+    transition: transform 1s;
+  }
   .icon-container {
     display:block;
     justify-content: space-between;
@@ -37,30 +71,7 @@ body{
     
     
   }
-  #navbar ul {
-   margin-bottom:-100px;
-   align-items: center;
-  }
-  #navbar ul li {
-    display: inline-block;
-    margin: 0 8px;
-    
-  }
-  #navbar ul li a {
-    text-decoration: none;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    letter-spacing: 0.75px;
-    font-size: 100%;
-    padding: 2em 1.5em;
-    color: black;
-    font-weight: 500;
-    text-transform: uppercase;
-    border: 1px solid transparent;
-  }
-  #navbar ul li a:hover {
-    color: #a7877a;
-    transition: transform 1s;
-  }
+
  .pic-2{
     background-image: url("/static/media/pexels-belle-co-1000444.jpg");
     padding: 100px;

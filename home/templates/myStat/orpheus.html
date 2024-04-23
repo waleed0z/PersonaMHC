@@ -3,32 +3,26 @@
 <html lang="en">
 <head>
     <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <div id="header">
-  <h3><div class = "logo"></div></h3>
-  </div>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Persona: mental healthcare </title>
-
-
-<nav class="menubar">
-  <div class="icon-container">
-    <img src="/static/media/bars.svg">
-   </div>
-
-   <div id="navbar">
-<ul>
-    <li><a href="">ABOUT</a></li>
-    <li><a href="">LEARN</a></li>
-    <li><a href="">THERAPY</a></li>
-    <li><a href="">GET INVOLVED</a></li>
-</ul>
-   </div>
-</nav>
+    <link rel="stylesheet" href="{% static 'fontawesome-free-6.5.1-web/css/all.css' %}">
 </head>
 
+
 <body>
+<header class="header">
+    <div class ="logo"><img class="persona" src="{% static 'media/p3.png' %}"></div>
+   <nav class="navbar">
+    <a href="">ABOUT</a>
+    <a href="">LEARN</a>
+    <a href="">THERAPY</a>
+     <a href="">HELP</a>
+    <a href="">GET INVOLVED</a>
+
+   </nav>
+
+    <div class="icon">
+ <i class="fas fa-bars" id="menu-bars"></i>
+    </div>
+</header>
  <div class = "bg-image"></div>
  <div id = "start">
   <h1> YOUR MENTAL HEALTH MATTERS</h1>
@@ -60,11 +54,9 @@
           <div class="team-member team-member-primary">
             <img class="mx-auto rounded-circle" src="/static/media/WALEED.png" alt="" />
             <h4>Umar Ashiru</h4>
-            <p class="text-muted">Software Developer<br><a href="waleedashir6@gmail.com">Email</a></p></p>
+            <p class="text-muted">Software Developer<br><a href="waleedashir6@gmail.com">Email</a></p>
           </div>
-        </div>
-
-
+  </section>
 
   <div id="footer">
       <ul>
@@ -75,7 +67,6 @@
         </ul>
       <h4>&copy; 2022 Persona. All Rights Reserved.</h4>
   </div>
-      </div>
 
 </body>
 </html>
