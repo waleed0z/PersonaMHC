@@ -6,17 +6,19 @@ body{
    top: 0;
    left: 0; right: 0;
    background: white;
-   padding: 1rem 7%;
+   padding: 0.5rem 6%;
    display: flex;
    align-items: center;
    justify-content: space-between;
-   border:3px solid #ece2de75;
+   border: 0.075px solid #ece2de75;
  }
 
  .logo{
    display: flex;
-   height: 50px;
-   width:100px;
+   position: relative;
+   height: 70px;
+   width:50px;
+   right:1rem;
 
   }
 .persona {
@@ -25,9 +27,9 @@ body{
   right: 5rem;
 }
 .icon {
- display: flex;
+ display: none;
  position: relative;
- left: 3rem;
+ left: 1rem;
 }
 .icon i{
   font-size: 1.5rem;
@@ -37,9 +39,9 @@ body{
 .icon i:hover{
   color: black;
 }
+
 .navbar a {
-  height: 30px;
-  width: 20px;
+  position: relative;
   text-decoration: none;
   font-size: 1rem;
   font-weight: 500;
@@ -47,7 +49,7 @@ body{
   color: black;
   font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
   letter-spacing: 0.75px;
-  border: 1px solid transparent;
+  right:18em;
   }
 .navbar a:hover {
     color: #e6c2b4;
@@ -343,7 +345,38 @@ h1, h2, h3, h4, h5, h6,
     color: #e6c2b4;
   }
  
+      @media (max-width:991px){
+    html{
+        font-size: 55.5%;
+    }
 
+    header{
+        padding: 1rem 2rem;
+
+    }
+
+    section{
+        padding:2rem;
+
+    }
+
+}
+@media (max-width:991px){
+    html{
+        font-size: 55.5%;
+    }
+
+    header{
+        padding: 1rem 2rem;
+
+    }
+
+    section{
+        padding:2rem;
+
+    }
+
+}
   @media screen and (max-width: 768px) {
   
 
