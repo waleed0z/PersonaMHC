@@ -1,0 +1,162 @@
+.done h1{
+     font-size:35px;
+     font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+     text-align: center;
+     font-weight:300;
+}
+.done p{
+    font-size: 12px;
+    font-weight: 200;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+    bottom: 10%;
+}
+.key done h1{
+     font-size:35px;
+     font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+     text-align: center;
+     font-weight:300;
+}
+.key done p{
+    font-size: 12px;
+    font-weight: 200;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+    bottom: 10%;
+
+form{
+    height: 450px;
+    width: 400px;
+    background-color: rgba(255,255,255,0.13);
+    position: absolute;
+    transform: translate(-50%,-50%);
+    top: 50%;
+    left: 50%;
+    border-radius: 10px;
+
+    border: 2px solid rgba(255,255,255,255);
+    box-shadow: 0 0 10px rgba(8,7,16,0.5);
+    padding: 50px 35px;
+}
+form *{
+    font-size: 12px;
+    font-weight: 200;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    color: black;
+    letter-spacing: 0.5px;
+    outline: none;
+    border: none;
+    position:relative;
+    bottom: 10%;
+
+}
+form h1{
+     font-size:35px;
+     font-family: "Merriweather Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+     text-align: center;
+     font-weight:300;
+
+
+}
+label{
+    display: block;
+    margin-top: 30px;
+    font-size: 16px;
+    font-weight: 200;
+     font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+input{
+    display: block;
+    height: 50px;
+    width: 100%;
+    background-color: rgba(255,255,255,255);
+    border-radius: 5px;
+    border: 0.05px solid gray;
+    padding: 0 10px;
+    margin-top: 8px;
+    font-size: 15px;
+
+
+}
+::placeholder{
+    color: gray;
+}
+button{
+    color: #000000;
+    margin-top: 25px;
+    width: 100%;
+    background-color: #e6c2b4;
+    color: white;
+    padding: 10px 0;
+    font-weight: 500;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    border-spacing: 50px;
+    font-size: 18px;
+
+    border-radius: 5px;
+    border: 2px solid #e6c2b4;
+
+    box-sizing: border-box;
+    cursor: pointer;
+}
+body{
+    background-image: url ("/accounts/static/media/pexels-tima-miroshnichenko-5711008.jpg");
+    background-size: cover;
+
+}
+.background{
+    width: 430px;
+    height: 520px;
+    position: absolute;
+    transform: translate(-50%,-50%);
+    left: 50%;
+    top: 50%;
+}
+.background .shape{
+    height: 200px;
+    width: 200px;
+    position: absolute;
+    border-radius: 50%;
+}
+.shape:first-child{
+    background: linear-gradient(
+        #1845ad,
+        #23a2f6
+    );
+    left: -80px;
+    top: -80px;
+}
+.shape:last-child{
+    background: linear-gradient(
+        to right,
+        #ff512f,
+        #f09819
+    );
+    right: -30px;
+    bottom: -80px;
+}
+
+ color: #000000;
+
+    filter: blur(0.25px);
+    box-sizing: border-box;
+    border: 2px solid rgba(0, 0, 0, 0.603);
+    border-color: #000000a2;
+    white-space: nowrap;
+    width: 80%;
+    border-radius: 0.5px;
+    padding: 10px 15px;
+    font-weight: 00;
+    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+    border-spacing: 50px;
+    font-size: 15px;
+    letter-spacing: 2px;
+    text-align: center;
+
+
