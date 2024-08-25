@@ -1,0 +1,2 @@
+web: gunicorn
+PersonaMHC.wsgi:application -- bind 0.0.0.0:SPORT
