@@ -1,167 +1,85 @@
 <!DOCTYPE html>
-<html lang="en">
-{% load static %}
+<html>
 <head>
-    <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <div id="header">
-  <h3> <a href="{% url 'index' %}"><div class = "logo" ></div></a></h3>
-  </div>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-
-<nav class="menubar">
-  <div class="icon-container">
-    <img src="/static/media/bars.svg">
-   </div>
-
-   <div id="navbar">
-<ul>
-    <li><a href="">ABOUT</a></li>
-    <li><a href="">LEARN</a></li>
-    <li><a href="">THERAPY</a></li>
-    <li><a href="">GET INVOLVED</a></li>
-</ul>
-   </div>
-</nav>
-    <meta charset="UTF-8">
-    <title>Orpheus</title>
+    <title>Chat with Orpheus</title>
     <style>
-        html, body, div, span, applet, object, iframe,p, blockquote, pre,
-a, abbr, acronym, address, big, cite, code,
-del, dfn, em, img, ins, kbd, q, s, samp,
-small, strike, strong, sub, sup, tt, var,
-b, u, i, center,
-dl, dt, dd, ol, ul, li,
-fieldset, form, label, legend,
-table, caption, tbody, tfoot, thead, tr, th, td,
-article, aside, canvas, details, embed,
-figure, figcaption, footer, header, hgroup,
-menu, nav, output, ruby, section, summary,
-time, mark, audio, video {
-	margin: 0;
-	padding: 0;
-	border: 0;
-	font-size: 100%;
-	font: inherit;
-	vertical-align: baseline;
-    font-family: Arial, Helvetica, sans-serif;
-}
-
-body{
-    background-color: rgb(255, 255, 255);
-}
-
-p{
-    background-color: white;
-    color: black;
-    width: 100%;
-    height: 60px;
-    margin-top:0.5em;
-    padding-top: 100px;
-    padding-bottom: 10px;
+        body { font-family: Arial, sans-serif; }
+        #chat-log {
+            border: 1px solid #ccc;
+            padding: 10px;
+            height: 400px;
+            overflow-y: scroll;
+            margin-bottom: 10px;
+        }
+        .user-message {background-color: white;
+    border-radius: 25px;
+    box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
+    display: inline-block;
+    max-width: 300px;
+    padding: 15px 20px;
+    position: relative;
     text-align: left;
-    font-size: 40px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    letter-spacing: 1px;
-}
-
-.container{
-    width: 960px;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 2%;
-}
-
-.logo{
-    margin-top: 0px;
-    margin-bottom: 0px;
-    padding-left: 15px;
-    border-left: 2px solid #e6c2b4;
-
-}
-
-.section{
-    border-bottom: 1px solid #e6c2b4;
-    padding-bottom: 5px;
-    margin-bottom: 15px;
-}
-
-form{
-    margin-bottom: 10%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-#text{
-    width: 70%;
-    height: 30px;
-    padding-left: 10px;
-}
-
-button{
-    background-color:white;
-    width: 20%;
-    height: 35px;
-    font-size: 18px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    border: 2px solid black;
     transition: all 0.5s;
-    border-spacing: 50px;
-    font-size: 100%;
-    letter-spacing: 2px;
-    filter: blur(0.2px);
-}
-
-button:hover{
-    color: #e6c2b4;
-    border: 2px solid #e6c2b4;
-    cursor: pointer;
-    transform: translate(10px);
-    filter: blur(0.5px);
-}
-
-.footer{
-    margin-top: 360px;
-    text-align: center;
-    background-color: white;
-    color: black;
-    height: 15px;
-    letter-spacing: 1px;
-    text-align: center;
-    padding-bottom: 0px;
-    font-size: 75%;
-    font-weight: 100;
-
-}
+    vertical-align: top;
+    white-space: normal;
+    z-index: 1;
+ }
+        .bot-message { color: green; margin: 5px 0; }
     </style>
- </head>
-
+</head>
 <body>
-    <div class="header2">
-        <p>HELLO! I'M ORPHEUS</p>
-    </div>
-    <div style="background-color: #e6c2b4; height: 8px;"></div>
-    <br>
-    <hr>
-    <div class="container">
-        <div class="log">
-            {% for message in chat_history %}
-            <div class="section">
-                <p style="font-size: 18px;"><span style="color: #e6c2b4; font-weight: bold;">User:</span> <span style="color: lightgrey">{{ message.0 }}</span></p><p style="font-size: 18px; color: black;">{{ message.1 }}</p>
-                <p style="font-size: 12px; color: lightgrey;">{{ message.created }}</p>
-            </div>
-            {% endfor %}
-        </div>
+    <h1>Orpheus Chatbot</h1>
+    <div id="chat-log"></div>
+    <form id="chat-form">
+        {% csrf_token %}
+        <input type="text" id="message" placeholder="Type your message..." required>
+        <button type="submit">Send</button>
+    </form>
 
-        <form method="post" action="{% url 'chatbot' %}">
-            {% csrf_token %}
-            <input type="text" name="user_input" id="text" placeholder="How're you feeling today?" >
-            <button type="submit">SEND</button>
-        </form>
-    </div>
-    <div class="footer"> <h4>&copy; 2022 Persona. All Rights Reserved.</h4></div>
+    <script>
+        function getCSRFToken() {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let cookie of cookies) {
+                    cookie = cookie.trim();
+                    if (cookie.startsWith("csrftoken=")) {
+                        cookieValue = cookie.split('=')[1];
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+        const csrftoken = getCSRFToken();
+
+        document.getElementById("chat-form").addEventListener("submit", function(event) {
+            event.preventDefault();
+            sendMessage();
+        });
+
+        function sendMessage() {
+            const messageInput = document.getElementById("message");
+            const message = messageInput.value.trim();
+            if (!message) return;
+
+            const chatLog = document.getElementById("chat-log");
+            chatLog.innerHTML += `<div class="user-message">You: ${message}</div>`;
+
+            messageInput.value = "";
+
+            fetch("{% url 'chatbot_response' %}", {
+                method: "POST",
+                headers: { "X-CSRFToken": csrftoken },
+                body: new URLSearchParams({ message })
+            })
+            .then(response => response.json())
+            .then(data => {
+                chatLog.innerHTML += `<div class="bot-message">Orpheus: ${data.reply}</div>`;
+                chatLog.scrollTop = chatLog.scrollHeight;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
 </body>
-
 </html>

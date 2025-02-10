@@ -26,7 +26,9 @@ SECRET_KEY = 'django-insecure-i7t+#$djvveuphvl&6qr===c+_#slgtg3hbpd39i+gfbkpq@(t
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
+CSRF_TRUSTED_ORIGINS = [
+    "https://8000-cs-844002465568-default.cs-europe-west1-xedi.cloudshell.dev",
+]
 
 # Application definition
 

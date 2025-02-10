@@ -8,21 +8,37 @@
 
 
 <body>
-<header class="header">
-    <div class ="logo"><img class="persona" src="{% static 'media/p3.png' %}"></div>
-   <nav class="navbar">
-    <a href="">ABOUT</a>
-    <a href="">LEARN</a>
-    <a href="">THERAPY</a>
-     <a href="">HELP</a>
-    <a href="">GET INVOLVED</a>
-    <i class="fas fa-x" id="close"></i>
-   </nav>
+    <nav>
+        <div class ="logo"><img class="persona" src="{% static 'media/p3.png' %}"></div>
+        <ul id="menuList">
+          <li><a href="">HOME</a></li>
+          <li><a href="">ABOUT</a></li>
+          <li><a href="">FIND HELP</a></li>
+          <li><a href="">CONTACT</a></li>
+          <li><a href="">GET INVOLVED</a></li>
+      </ul>
+      <div class="menu-icon">
+          <i class="fa-solid fa-bars" onclick="toggleMenu()"></i>
+      </div>
+  </nav>
 
-    <div class="icon">
- <i class="fas fa-bars" id="menu-bars"></i>
-    </div>
-</header>
+
+  <script>
+      let menuList = document.getElementById("menuList")
+      menuList.style.maxHeight = "0px";
+
+      function toggleMenu(){
+          if(menuList.style.maxHeight == "0px")
+          {
+              menuList.style.maxHeight = "300px";
+          }
+          else{
+              menuList.style.maxHeight = "0px";
+          }
+      }
+      
+  </script>
+  
  <div class = "bg-image"></div>
  <div id = "start">
   <h1> YOUR MENTAL HEALTH MATTERS</h1>
@@ -70,5 +86,6 @@
       <h4>&copy; 2022 Persona. All Rights Reserved.</h4>
   </div>
 <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+<script src="https://kit.fontawesome.com/f8e1a90484.js" crossorigin="anonymous"></script>
 </body>
 </html>
