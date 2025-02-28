@@ -10,7 +10,7 @@ class MentalHealthChatbot:
         # Configure the generative AI client with your API key.
         genai.configure(api_key=api_key)
         # Initialize the generative model (adjust the model name if needed).
-        self.model = genai.GenerativeModel('gemini-pro')
+        self.model = genai.GenerativeModel('gemini-2.0-flash')
         
         # Define a list of high-risk keywords to trigger additional safety instructions.
         self.crisis_keywords = [
@@ -24,9 +24,9 @@ class MentalHealthChatbot:
         """
         # Base instructions for tone and safety.
         base_instructions = (
-            "You are a compassionate and supportive mental health counselor chatbot. "
-            "Respond empathetically and professionally. Always remind the user that you are not a substitute "
-            "for professional help, and encourage seeking help when needed."
+            "You are a compassionate and supportive mental health counselor chatbot with 30 years of experience. "
+            "Respond empathetically and professionally and provide advice. Only when you feel necessary, remind the user that you are not a substitute, but you can let them share and give them good therapy, in fact, make them open up to you "
+            "Only when you detect the patient actually needs professional help should you encourage them to seek our experts."
         )
         
         # Check if the message contains any high-risk keywords.
@@ -43,7 +43,7 @@ class MentalHealthChatbot:
             f"{base_instructions}{additional_safety}\n\n"
             "Please respond to the following message professionally and supportively:\n\n"
             f"User: {message}\n\n"
-            "Keep your response concise (2-3 sentences max)."
+            "Keep your response concise (6-10 sentences max)."
         )
         return prompt
         
