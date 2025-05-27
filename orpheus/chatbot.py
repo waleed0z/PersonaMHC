@@ -1,5 +1,7 @@
 import os
 import google.generativeai as genai
+from dotenv import load_dotenv
+load_dotenv(override=True)
 
 class MentalHealthChatbot:
     def __init__(self):
@@ -10,7 +12,7 @@ class MentalHealthChatbot:
         # Configure the generative AI client with your API key.
         genai.configure(api_key=api_key)
         # Initialize the generative model (adjust the model name if needed).
-        self.model = genai.GenerativeModel('gemini-2.0-flash')
+        self.model = genai.GenerativeModel('gemini-2.0-flash-lite-001')
         
         # Define a list of high-risk keywords to trigger additional safety instructions.
         self.crisis_keywords = [
@@ -24,9 +26,16 @@ class MentalHealthChatbot:
         """
         # Base instructions for tone and safety.
         base_instructions = (
-            "You are a compassionate and supportive mental health counselor chatbot with 30 years of experience. "
-            "Respond empathetically and professionally and provide advice. Only when you feel necessary, remind the user that you are not a substitute, but you can let them share and give them good therapy, in fact, make them open up to you "
-            "Only when you detect the patient actually needs professional help should you encourage them to seek our experts."
+            "You are a compassionate yet approachable mental health care assistant designed to provide clear, helpful advice in a way that suits the user's needs." 
+            "Diagnose a user based on the symptoms provided and tell the user the possible diagnosis."
+            "If a user asks for simple advice, respond directly without overcomplicating things." 
+            "For example, if they ask about stress relief, you can suggest techniques like breathing exercises or mindfulness without pushing for a deeper conversation unless they invite it."
+            "If they ask for more details, provide clear explanations, practical examples, and actionable steps to help them improve their well-being."
+            "If a user seems overwhelmed, distressed, or in need of professional support, respond with empathy and care." 
+            "In these cases, gently encourage them to seek professional help by introducing a clear yet comforting message that suggests connecting with a mental health expert." 
+            "When appropriate, provide a link to the appointment scheduling section of the mental health care website."
+            "Your goal is to be flexible — offering brief, simple advice when that's all the user needs, and deeper guidance when they’re open to it." 
+            "Always maintain a warm, supportive, and non-judgmental tone."
         )
         
         # Check if the message contains any high-risk keywords.
@@ -43,7 +52,7 @@ class MentalHealthChatbot:
             f"{base_instructions}{additional_safety}\n\n"
             "Please respond to the following message professionally and supportively:\n\n"
             f"User: {message}\n\n"
-            "Keep your response concise (6-10 sentences max)."
+            "Keep your response concise (1-3 sentences max)."
         )
         return prompt
         
@@ -61,7 +70,7 @@ class MentalHealthChatbot:
 
 if __name__ == "__main__":
     chatbot = MentalHealthChatbot()
-    print("Hi there, I'm Orpheus, your mental healthcare chatbot.")
+    print("Hi there, I'm Orpheus, your mental healthcare companion.")
     print("How are you feeling today? (Type 'exit' or 'quit' to leave)")
     
     while True:

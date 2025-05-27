@@ -6,10 +6,11 @@
     <title>Chat with Orpheus</title>
     <style>
         body { font-family: Poppins, Arial, sans-serif; 
-        color: black;
+        color: rgba(0, 0, 0, 0.777);
         font-weight: 300;
         }
         #chat-log {
+            color: rgba(0, 0, 0, 0.777);
             display: flex;
             flex-direction: column;
             gap: 10px;
@@ -19,8 +20,9 @@
             overflow-y: scroll;
         }
         .user-message {
+    color: rgb(255, 255, 255);
     align-self: flex-end;
-    background-color: white;
+    background-color: #e6c2b4;
     border-radius: 25px;
     box-shadow: rgba(0, 0, 0, 0.12) 0px 1px 6px, rgba(0, 0, 0, 0.12) 0px 1px 4px;
     display: inline-block;
@@ -83,9 +85,10 @@
     outline:none;
     }
     #message{
+    font-family: Poppins, Arial, sans-serif;
     border: none;
-    color: black;
-    font-size: 1em;
+    color: gray;
+    font-size:1em;
     font-weight: 300;
     margin-left: 20px;
     outline: none;
@@ -130,7 +133,7 @@
             if (!message) return;
 
             const chatLog = document.getElementById("chat-log");
-            chatLog.innerHTML += `<div class="user-message">You: ${message}</div>`;
+            chatLog.innerHTML += `<div class="user-message"> ${message}</div>`;
 
             messageInput.value = "";
 
@@ -141,7 +144,7 @@
             })
             .then(response => response.json())
             .then(data => {
-                chatLog.innerHTML += `<div class="bot-message">Orpheus: ${data.reply}</div>`;
+                chatLog.innerHTML += `<div class="bot-message"> ${data.reply}</div>`;
                 chatLog.scrollTop = chatLog.scrollHeight;
             })
             .catch(error => console.error("Error:", error));
