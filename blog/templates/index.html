@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MentBlog - Home</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <a class="navbar-brand" href="/">
+            <span style="font-size:2.2rem;vertical-align:middle;">&#9998;</span>
+            MentBlog
+        </a>
+        <div class="nav-links">
+            <a class="nav-link" href="/read/" tabindex="1">Read Blogs</a>
+            <a class="nav-link" href="/create/" tabindex="2">Write a Blog</a>
+        </div>
+    </nav>
+
+    <section class="hero" aria-label="Welcome section">
+        <div class="hero-content">
+            <h1 class="hero-title">Welcome to MentBlog</h1>
+            <p class="hero-subtitle">Your space to read, write, and share inspiring stories and ideas. Join our community of passionate writers and readers!</p>
+            <div class="hero-btns">
+                <a href="/read/" class="btn btn-primary" tabindex="3">Explore Blogs</a>
+                <a href="/create/" class="btn btn-secondary" tabindex="4">Start Writing</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="features" aria-label="Platform features">
+        <div class="feature-card" tabindex="5">
+            <div class="feature-icon" aria-hidden="true">&#128214;</div>
+            <h2>Discover & Read</h2>
+            <p>Browse a wide variety of blogs from different authors. Find topics that interest you and engage with the community.</p>
+            <a href="{% url 'read_posts' %}" class="btn btn-primary" tabindex="6">Read Blogs</a>
+        </div>
+        <div class="feature-card" tabindex="7">
+            <div class="feature-icon" aria-hidden="true">&#9997;&#65039;</div>
+            <h2>Create & Share</h2>
+            <p>Write your own blog posts with our easy-to-use editor. Share your knowledge, stories, and opinions with the world.</p>
+            <a href="{% url 'create_post' %}" class="btn btn-secondary" tabindex="8">Write a Blog</a>
+        </div>
+        <div class="feature-card" tabindex="9">
+            <div class="feature-icon" aria-hidden="true">&#128172;</div>
+            <h2>Engage & Connect</h2>
+            <p>Comment on posts, connect with other writers, and grow your audience. MentBlog is a place for meaningful conversations.</p>
+            <a href="" class="btn btn-primary" tabindex="10">Join the Conversation</a>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2023 MentBlog. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="mailto:support@mentblog.com" aria-label="Contact Support">Contact Support</a>
+                <span class="separator">|</span>
+                <a href="{% url 'read_posts' %}" aria-label="Read Blogs">Read Blogs</a>
+                <span class="separator">|</span>
+                <a href="{% url 'create_post' %}" aria-label="Write a Blog">Write a Blog</a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hero = document.querySelector('.hero');
+            hero.style.opacity = 0;
+            hero.style.transform = 'translateY(40px)';
+            setTimeout(() => {
+                hero.style.transition = 'opacity 0.7s cubic-bezier(.4,2,.6,1), transform 0.7s cubic-bezier(.4,2,.6,1)';
+                hero.style.opacity = 1;
+                hero.style.transform = 'translateY(0)';
+            }, 100);
+        });
+    </script>
+</body>
+</html>

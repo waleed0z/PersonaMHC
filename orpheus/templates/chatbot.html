@@ -9,6 +9,33 @@
         color: rgba(0, 0, 0, 0.777);
         font-weight: 300;
         }
+        #back-home {
+  display: flex;
+  align-items: center;
+  margin-bottom: 18px;
+  margin-left: 10px; 
+  text-decoration: none;
+  color: #e6c2b4;
+  font-size: 2em;
+  transition: color 0.2s;
+}
+.back-text {
+  font-size: 0.5em;
+  margin-left: 10px;
+  font-weight: 400;
+  color:#e6c2b4;
+}
+#back-home:hover,
+#back-home:hover .back-text {
+  color: #ccc;
+}
+.fa-arrow-left{
+    font-size: 0.7em;
+    transition: color 0s;
+}
+h1{
+    font-weight: 250;
+}
         #chat-log {
             color: rgba(0, 0, 0, 0.777);
             display: flex;
@@ -16,7 +43,7 @@
             gap: 10px;
             border: 1px solid white;
             padding: 10px;
-            height: 400px;
+            height: 300px;
             overflow-y: scroll;
         }
         .user-message {
@@ -97,7 +124,11 @@
     </style>
 </head>
 <body>
-    <h1>Orpheus Chatbot</h1>
+    <a href="/" id="back-home" title="Back to Home">
+        <i class="fas fa-arrow-left"></i>
+        <span class="back-text">Back to Homepage</span>
+      </a>
+    <h1>How can I help you today?</h1>
     <div id="chat-log"></div>
     <form id="chat-form">
         {% csrf_token %}

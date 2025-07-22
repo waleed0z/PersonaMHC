@@ -1,114 +1,268 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create Post - MentBlog</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/blog_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <style>
+        nav{
+            background-color: white;
+        }
+        .editor-container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 5%;
+            margin-top: 7em;
+        }
+        
+        .form-group {
+            margin-bottom: 3rem;
+        }
+        
+        .form-label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.8rem;
+            color: var(--gray-700);
+            font-size: 1.1rem;
+        }
+        
+        .form-input {
+            width: 100%;
+            padding: 1.2rem;
+            border: 1px;
+            border-radius: var(--radius);
+            font-size: 1.2rem;
+            transition: border-color white;
+            font-family: 'Georgia', serif;
+        }
+        
+        .form-input:focus {
+            outline: none;
+            border-color: var(--black);
+            box-shadow: 0 0 0 2px white;
+        }
+        
+        textarea.form-input {
+            min-height: 400px;
+            resize: vertical;
+            line-height: 1.7;
+        }
+        
+        .file-upload {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .file-upload-label {
+            background: var(--gray-100);
+            padding: 0.75rem 1.5rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: background var(--transition);
+        }
+        
+        .file-upload-label:hover {
+            background: var(--gray-200);
+        }
+        
+        .publish-btn {
+            background: var(--black);
+            color: var(--white);
+            padding: 1rem 2.5rem;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            cursor: pointer;
+            transition: all var(--transition);
+            border: none;
+            font-family: 'Poppins', sans-serif;
+        }
+        
+        .publish-btn:hover {
+            background: var(--gray-700);
+            transform: translateY(-2px);
+            box-shadow: var(--shadow);
+        }
+        .tip-content p{
+            color: black;
+        }
+        .sidebar {
+            background: var(--gray-100);
+            padding: 2.5rem;
+            border-radius: var(--radius);
+            margin-top: 3rem;
+        }
+        
+        .sidebar-title {
+            font-size: 1.4rem;
+            font-weight: 700;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--gray-200);
+        }
+        .tip {
+            display: flex;
+            gap: 1.2rem;
+            margin-bottom: 1.8rem;
+        }
+        
+        .tip-icon {
+            color: var(--accent);
+            font-size: 1.5rem;
+            margin-top: 0.3rem;
+        }
+        
+        .tip-content {
+            flex: 1;
+        }
+        
+        .tip-title {
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+        
+        .tag {
+            background: var(--gray-100);
+            color: var(--gray-500);
+            padding: 0.4rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            margin-bottom: 0.5rem;
+            display: inline-block;
+            font-family: 'Poppins', sans-serif;
+        }
+        .hero-title {
+            color: rgba(0, 0, 0, 0.164);
+        }
+    </style>
+</head>
+<body>
+    <nav id="navbar">
+        <div class="logo">
+            <h1 class="p3" style=" font-family: Poppins, sans-serif; font-weight: 200;">PERSONA</h1>
+        </div>
+        <ul id="menuList">
+            <li><a href="{% url 'index' %}" class="active">HOME</a></li>
+            <li><a href="{% url 'index' %}#about">ABOUT</a></li>
+            <li><a href="{% url 'index' %}#crisis-help">CRISIS HELP</a></li>
+            <li><a href="{% url 'get_educated' %}">LEARN</a></li>
+            <li><a href="{% url 'index' %}#team">TEAM</a></li>
+            <li><a href="{% url 'read_posts' %}" aria-label="Read Blogs">Read Blogs</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <a href="#get-started" class="cta-btn btn-dark">Get Started</a>
+            <a href="/signup" class="cta-btn btn-light">Sign In</a>
+        </div>
+        <div class="menu-toggle-container">
+            <div class="menu-icon" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="close-icon" id="closeIcon" style="display: none;">
+                <i class="fa-solid fa-times"></i>
+            </div>
+        </div>
+    </nav>
 
-
-{% block content %}
-  <div class="container">
-    <div class="card">
-      <h2 class="card-header">SHARE YOUR MENTAL HEALTHCARE JOURNEY</h2>
-      <div class="card-body">
-        <form method="POST">
-          {% csrf_token %}
-          <div class="form-group">
-            <label for="name">Name or Alias</label>
-            <input type="text" name="name" class="form-control" placeholder="Enter your name or an alias" required>
-          </div>
-          <div class="form-group">
-            <label for="subject">Subject/Title</label>
-            <input type="text" name="subject" class="form-control" placeholder="Enter a subject or title for your post" required>
-          </div>
-          <div class="form-group">
-            <label for="body">Your Story</label>
-            <textarea name="body" class="form-control" rows="10" placeholder="share your story here..." required></textarea>
-          </div>
-          <button type="submit" class="btn btn-primary">Submit</button>
+    <main class="editor-container">
+        <h1 class="hero-title">Write your story....</h1>
+        <form action="{% url 'create_post' %}" method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            <div class="form-group">
+                <input type="text" name="name" id="name" class="form-input" placeholder="Enter your name or alias" required>
+            </div>
+            
+            <div class="form-group">
+                <input type="text" name="subject" id="subject" class="form-input" placeholder="Catchy title that grabs attention" maxlength="200" required>
+            </div>
+            
+            <div class="form-group">
+                <textarea name="body" id="body" class="form-input" placeholder="Write your story here..." required></textarea>
+            </div>
+            
+            <div class="form-group">
+                <label class="form-label">Add an Image (Optional)</label>
+                <div class="file-upload">
+                    <label for="attachment" class="file-upload-label">
+                        <i class="fas fa-image"></i> Choose Image
+                    </label>
+                    <input type="file" name="attachment" id="attachment" class="hidden">
+                </div>
+            </div>
+            
+            <div class="form-group text-right">
+                <button type="submit" class="publish-btn">Publish Post</button>
+            </div>
         </form>
-      </div>
+        
+        <div class="sidebar">
+            <h2 class="sidebar-title">Writing Tips</h2>
+            
+            <div class="tip">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <div class="tip-title">Craft a Compelling Headline</div>
+                    <p>Your headline is the first thing readers see. Make it clear, intriguing, and relevant to your content.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <div class="tip-title">Use Clear Paragraphs</div>
+                    <p>Break up your content into short paragraphs for better readability. Use subheadings to organize your thoughts.</p>
+                </div>
+            </div>
+            
+            <div class="tip">
+                <div class="tip-icon">💡</div>
+                <div class="tip-content">
+                    <div class="tip-title">Add Visuals</div>
+                    <p>Images help illustrate your points and make your post more engaging. Use high-quality, relevant images.</p>
+                </div>
+            </div>
+            
+            <h2 class="sidebar-title">Popular Tags</h2>
+            <div>
+                <span class="tag">Technology</span>
+                <span class="tag">Web Development</span>
+                <span class="tag">Design</span>
+                <span class="tag">Programming</span>
+                <span class="tag">Python</span>
+                <span class="tag">Django</span>
+            </div>
+        </div>
+    </main>
+    <div id="footer">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">JOIN US</a></li>
+            <li><a href="#">CONTACT</a></li>
+            <li><a href="#">ABOUT</a></li>
+        </ul>
+        <h4>&copy; 2025 Persona. All Rights Reserved.</h4>
     </div>
-  </div>
-{% endblock %}
-
-{% block scripts %}
-  <script>
-    document.querySelector('form').addEventListener('submit', function() {
-      document.querySelector('button[type="submit"]').disabled = true;
-    });
-  </script>
-
-{% endblock %}
-
-{% block styles %}
-  <style>
-    body {
-      background-color: #f5f5f5;
-    }
-    .container {
-      max-width: 2500px;
-      margin: 0 auto;
-      padding: 0px;
-    }
-    .card {
-      background-color: #e6c2b4;
-      box-shadow: 0 2px 10px #e6c2b4;
-      border-radius: 2px;
-      overflow: wrap;
-    }
-    .card-header {
-      background-color: #e6c2b4;
-      color: white;
-      font-size: 50px;
-      font-weight: 800;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      letter-spacing: 3px;
-      padding: 30px;
-      margin-bottom: 50px;
-      text-align: center;
-    }
-    .card-body {
-      padding: 20px;
-    }
-    label {
-      font-size: 20px;
-      letter-spacing: 1px;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      margin-bottom: 5px;
-      display: block;
-      color: white;
-    }
-    .form-control {
-      font-size: 100%;
-      background-color: white;
-      letter-spacing: 1px;
-      font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-      border-radius: 1px;
-      border: none;
-      padding: 10px;
-      width: 100%;
-      margin-bottom: 50px;
-    }
-    .form-control::placeholder {
-      color: #999;
-    }
-    .btn {
-    width: 20%;
-    height: 35px;
-    font-size: 18px;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    border: 2px solid #e6c2b4;
-    transition: all 0.5s;
-    border-spacing: 50px;
-    font-size: 100%;
-    letter-spacing: 2px;
-    filter: blur(0.2px);
-    }
-    .btn-primary {
-      background-color:white;
-      color: #e6c2b4;
-    }
-    .btn-primary:hover {
-    color: darkred;
-    border: 2px solid darkred;
-    cursor: pointer;
-    transform: translate(10px);
-    filter: blur(0.5px);
-    }
-  </style>
-{% endblock %}
+    
+    <script>
+        // Update file name display
+        document.getElementById('attachment').addEventListener('change', function(e) {
+            const fileName = e.target.files[0] ? e.target.files[0].name : 'No file chosen';
+            document.getElementById('file-name').textContent = fileName;
+        });
+        
+        // Form submission handler
+        document.querySelector('form').addEventListener('submit', function() {
+            const btn = document.querySelector('.publish-btn');
+            btn.disabled = true;
+            btn.textContent = 'Publishing...';
+        });
+    </script>
+</body>
+</html>

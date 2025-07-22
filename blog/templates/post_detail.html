@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ post.subject }} - MentBlog</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <nav class="navbar" role="navigation" aria-label="Main navigation">
+        <a class="navbar-brand" href="/">
+            <span style="font-size:2.2rem;vertical-align:middle;">&#9998;</span>
+            MentBlog
+        </a>
+        <div class="nav-links">
+            <a class="nav-link" href="/read/" tabindex="1">Read Blogs</a>
+            <a class="nav-link" href="/create/" tabindex="2">Write a Blog</a>
+        </div>
+    </nav>
+
+    <main class="posts-container">
+        <article class="post-card">
+            <div class="post-meta">
+                <img src="https://placeholder.pics/svg/36x36/DEDEDE/555555/avatar" alt="{{ post.name }}" class="author-avatar">
+                <span class="post-author">{{ post.name }}</span>
+                <span class="post-date">{{ post.created_at|date:"F d, Y" }}</span>
+            </div>
+            
+            <h1 class="post-title">{{ post.subject }}</h1>
+            
+            {% if post.attachment %}
+            <div class="post-image">
+                <img src="{{ post.attachment.url }}" alt="Post image" class="post-image">
+            </div>
+            {% endif %}
+            
+            <div class="post-content">
+                {{ post.body|linebreaks }}
+            </div>
+            
+            <div class="post-stats">
+                <span>{{ reading_time }} min read</span>
+                <button class="clap-btn">
+                    <span>👏</span> 42
+                </button>
+            </div>
+        </article>
+    </main>
+
+    <footer>
+        <div class="footer-content">
+            <div class="copyright">
+                &copy; 2023 MentBlog. All rights reserved.
+            </div>
+            <div class="footer-links">
+                <a href="mailto:support@mentblog.com" aria-label="Contact Support">Contact Support</a>
+                <span class="separator">|</span>
+                <a href="{% url 'read_posts' %}" aria-label="Read Blogs">Read Blogs</a>
+                <span class="separator">|</span>
+                <a href="{% url 'create_post' %}" aria-label="Write a Blog">Write a Blog</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

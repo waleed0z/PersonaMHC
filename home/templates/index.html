@@ -1,0 +1,1261 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Persona Mental Health Companion</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- Google Fonts & FontAwesome -->
+    <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', Arial, sans-serif;
+            font-weight: 300;
+            max-width: 100vw;
+            overflow-x: hidden;
+            box-sizing: border-box;
+        }
+        *, *::before, *::after {
+            box-sizing: inherit;
+        }
+        nav {
+            background: solid #22223b;
+            position: fixed;
+            width: 100vw;
+            top: 0;
+            left: 0;
+            z-index: 1200;
+            transition: box-shadow 0.3s, background 0.3s;
+            padding: 0 2.5em;
+            display: flex;
+            align-items: center;
+            height: 60px;
+            justify-content: space-between;
+            font-weight: 300;
+        }
+        nav.scrolled {
+            box-shadow: 0 4px 16px rgba(34,34,59,0.12);
+            background: white;
+        }
+        nav .logo img {
+            height: 32px;
+        }
+        nav ul {
+            display: flex;
+            gap: 1.5em;
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            align-items: center;
+        }
+        nav ul li a {
+            color:#22223b;
+            text-decoration: none;
+            font-weight: 400;
+            font-size: 0.98em;
+            letter-spacing: 1px;
+            padding: 0.2em 0.7em;
+            border-bottom: 2px solid transparent;
+            text-transform: uppercase;
+            transition: color 0.18s, border-bottom 0.18s, background 0.18s;
+            border-radius: 3px;
+        }
+        nav ul li a:hover, nav ul li a.active {
+            color: var(--accent);
+            background: #f2f2f7;
+            border-bottom: 2px solid var(--accent);
+            cursor: pointer;
+        }
+        .menu-icon {
+            display: none;
+            font-size: 1.7em;
+            color: var (--accent);
+            cursor: pointer;
+            z-index: 1101;
+        }
+        .nav-overlay {
+            display: none;
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(34,34,59,0.25);
+            z-index: 1000;
+        }
+        .nav-overlay.open {
+            display: block;
+        }
+        .navbar-actions {
+            display: flex;
+            gap: 0.7em;
+            align-items: center;
+        }
+        .navbar-actions .cta-btn {
+            font-size: 0.98em;
+            padding: 0.5em 1.3em;
+            text-transform: uppercase;
+            font-weight: 400;
+            letter-spacing: 1px;
+        }
+        .section-visual {
+            background-color: #22223b;
+        }
+        /* --- Revamped Section Styles --- */
+        .section-visual, .hero-section, .blog-section {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0;
+            min-height: 90vh;
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+            margin-bottom: 0;
+            box-shadow: none;
+        }
+        .section-visual.reverse, .blog-section.reverse {
+            flex-direction: row-reverse;
+        }
+        .section-img {
+            flex: 1 1 50%;
+            min-width: 320px;
+            min-height: 320px;
+            height: 60vh;
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            filter: brightness(0.92);
+        }
+        .section-box {
+            flex: 1 1 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 320px;
+            height: 100%;
+        }
+        .section-content, .intro-content {
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 2.5em 2em;
+            margin: 0;
+            text-align: left;
+            font-weight: 300;
+            max-width: 700px;
+            width: 100%;
+        }
+        .intro-section {
+            min-height: 32vh;
+            margin-bottom: 0;
+            box-shadow: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .intro-content {
+            padding: 3em 1.5em 2.5em 1.5em;
+            margin: 0;
+            text-align: center;
+        }
+        .hero-section {
+            background-color: #22223b !important;
+        }
+        .hero-box, .blog-box {
+            display: flex;
+            justify-content: center;
+            width: 100%;
+        }
+        .hero-box .section-content,
+        .blog-box .section-content {
+            margin-top: 0;
+        }
+        .section-content h1, .section-content h2, .intro-content h1 {
+            margin-top: 70px;
+            color:#22223b;
+            font-weight: 300;
+        }
+        .section-content h1 {
+            font-size: 2.2em;
+            margin-bottom: 0.4em;
+        }
+        .section-content h2 {
+            font-size: 1.4em;
+            margin-bottom: 0.5em;
+        }
+        .section-content p {
+            color:#22223b;
+            font-size: 1.13em;
+            margin-bottom: 2em;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        .section-content-2 {
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 2.5em 2em;
+            margin: 0;
+            text-align: left;
+            font-weight: 300;
+            max-width: 700px;
+            width: 100%;
+        }
+        .section-content-2 h1, .section-content-2 h2 {
+            margin-top: 70px;
+            color:white;
+            font-weight: 300;
+        }
+        .section-content-2 h1 {
+            font-size: 2.2em;
+            margin-bottom: 0.4em;
+        }
+        .section-content h2 {
+            font-size: 1.4em;
+            margin-bottom: 0.5em;
+        }
+        .section-content-2 p {
+
+            color: white;
+            font-size: 1.13em;
+            margin-bottom: 2em;
+            line-height: 1.7;
+            font-weight: 300;
+        }
+        .quote-carousel-container-2 {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2em 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: none;
+        }
+        .quote-carousel-container-2 {
+            background-color:#22223b;
+            color: white;
+        }
+        .cta-btn, .blog-btn {
+            color: white;
+            padding: 0.9em 2.2em;
+            border-radius: 6px;
+            font-weight: 300;
+            font-size: 1em;
+            text-decoration: none;
+            border: none;
+            transition: background 0.2s, box-shadow 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(34,34,59,0.10);
+            margin-right: 1em;
+            letter-spacing: 1px;
+            outline: none;
+            position: relative;
+            overflow: hidden;
+            display: inline-block;
+        }
+        .cta-btn.alt, .blog-btn.alt,
+        .section-visual.bg-black .cta-btn,
+        .section-visual.bg-black .blog-btn,
+        .blog-section.bg-black .cta-btn,
+        .blog-section.bg-black .blog-btn {
+            background: var(--black);
+            color: var(--white);
+        }
+        .cta-btn:hover, .blog-btn:hover {
+            background: var(--accent);
+            color: var(--white);
+        }
+        .blog-buttons {
+            display: flex;
+            gap: 1em;
+            margin-top: 1em;
+        }
+        .team-row {
+            display: flex;
+            justify-content: flex-start;
+            gap: 2.5em;
+            flex-wrap: wrap;
+            margin-top: 2em;
+        }
+        .team-member {
+            text-align: left;
+            background: none;
+            border-radius: 0;
+            box-shadow: none;
+            padding: 0 0 1em 0;
+            width: 220px;
+            color: var(--primary);
+            transition: background 0.2s, transform 0.2s;
+            border-left: 4px solid var(--accent);
+            font-weight: 300;
+        }
+        .team-member:hover {
+            background: none;
+            transform: translateY(-6px) scale(1.03);
+        }
+        .team-member img {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 3px solid var(--accent);
+            margin-bottom: 0.7em;
+            object-fit: cover;
+            background: #fff;
+        }
+        .team-member h4 {
+            margin: 0.5em 0 0.2em 0;
+            color: var(--accent);
+            font-size: 1.13em;
+            font-weight: 300;
+        }
+        .team-member p {
+            color: var (--primary);
+            font-size: 0.98em;
+            font-weight: 300;
+        }
+        .team-member a {
+            color: var(--accent);
+            text-decoration: none;
+            font-weight: 300;
+        }
+        .team-member a:hover {
+            text-decoration: underline;
+        }
+        #footer {
+            border-top: 1px solid var(--muted);
+            padding: 2.2em 0 1.2em 0;
+            text-align: center;
+            margin-top: 0;
+            color: var(--muted);
+            font-weight: 300;
+        }
+        #footer ul {
+            list-style: none;
+            padding: 0;
+            margin: 0 0 1em 0;
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+        }
+        #footer ul li a {
+            color: var(--primary);
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 400;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            padding: 0.2em 0.7em;
+            border-radius: 3px;
+            transition: color 0.18s, background 0.18s;
+        }
+        #footer ul li a:hover {
+            color: var(--accent);
+            background: #f2f2f7;
+        }
+        #footer h4 {
+            color: var(--muted);
+            font-size: 1em;
+            font-weight: 400;
+            margin: 0.5em 0 0 0;
+            letter-spacing: 1px;
+        }
+        #footer .citations {
+            display: none;
+        }
+        /* Carousel Styles */
+        .quote-carousel-container {
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 2em 0;
+            position: relative;
+            overflow: hidden;
+            box-shadow: none;
+        }
+        .quote-carousel {
+            max-width: 600px;
+            width: 90vw;
+            margin: 0 auto;
+            position: relative;
+            text-align: center;
+            min-height: 120px;
+            transition: background 0.4s, color 0.4s;
+            box-shadow: none;
+            border-radius: 0;
+        }
+        .quote-slide {
+            opacity: 0;
+            transform: translateY(30px) scale(0.98);
+            transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+            position: absolute;
+            left: 0; right: 0;
+            top: 0;
+            width: 100%;
+            z-index: 1;
+            pointer-events: none;
+        }
+        .quote-slide.active {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+            position: relative;
+            pointer-events: auto;
+            z-index: 2;
+        }
+        .quote-text {
+            font-size: 1.25em;
+            font-style: italic;
+            margin-bottom: 0.7em;
+            transition: color 0.4s;
+        }
+        .quote-author {
+            font-size: 1em;
+            color: var(--primary);
+            font-weight: 300;
+            transition: color 0.4s;
+        }
+        .carousel-controls {
+            margin-top: 1em;
+            display: flex;
+            justify-content: center;
+            gap: 1.5em;
+        }
+        .carousel-btn {
+            background: var(--accent);
+            color: var(--white);
+            border: none;
+            border-radius: 6px;
+            width: 36px;
+            height: 36px;
+            font-size: 1.1em;
+            cursor: pointer;
+            transition: background 0.2s, transform 0.2s;
+            outline: none;
+            box-shadow: 0 2px 8px rgba(34,34,59,0.10);
+        }
+        .carousel-btn:hover {
+            background: var(--primary);
+            transform: scale(1.08);
+        }
+
+        .hero-section {
+                flex-direction: column;
+            }
+        @media (max-width: 900px) {
+            .section-content { margin: 2vw; }
+            .team-row { gap: 1em; }
+            .hero-box .section-content, .blog-box .section-content { margin-top: 1em; }
+        }
+        @media (max-width: 900px) {
+            nav ul {
+                gap: 1em;
+            }
+        }
+        @media (max-width: 900px) {
+            .section-visual { flex-direction: column; }
+            .section-visual.reverse { flex-direction: column; }
+            .section-img, .section-box { min-width: 100vw; width: 100vw; }
+            .section-content { margin: 2em auto; }
+        }
+        @media (max-width: 1024px) {
+            nav {
+                padding: 0 1em;
+                max-width: 100vw;
+            }
+            nav ul {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 0px;
+                left: 0;
+                width: 100vw;
+                max-width: 100vw;
+                box-shadow: 0 2px 8px rgba(34,34,59,0.18);
+                background-color: white;
+                z-index: 1200;
+                padding: 1.5em 0;
+                margin: 0;
+                transition: max-height 0.3s;
+            }
+            nav ul.open {
+                display: flex;
+            }
+            nav ul li {
+                margin: 0 0 2em;
+            }
+            .menu-icon {
+                display: block;
+            }
+            .team-row { flex-direction: column; align-items: flex-start; }
+            .section-img, .section-box {
+                min-width: 100vw;
+                width: 100vw;
+                max-width: 100vw;
+            }
+            .intro-content {
+                padding: 1.3em 0.5em 1.2em 0.5em;
+                margin: 0.7em 0 0.7em 0;
+            }
+            .intro-section {
+                min-height: unset;
+            }
+            .section-content {
+                padding: 1.2em 0.7em;
+                margin: 0.7em 0;
+            }
+        }   
+        @media (max-width: 600px) {
+            .quote-carousel { min-height: 150px; }
+            .quote-text { font-size: 1.05em; }
+        }
+        section, .section-visual, .hero-section, .blog-section {
+            transition: background 0.5s, color 0.5s, box-shadow 0.5s;
+        }
+        .cta-btn, .blog-btn {
+            transition: background 0.2s, color 0.2s, box-shadow 0.2s, transform 0.2s;
+        }
+        .team-member, .section-content, .section-img {
+            transition: background 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+        }
+        html {
+            scroll-behavior: smooth;
+        }
+        
+        .btn-dark {
+            background: #22223b !important;
+            color: white !important;
+        }
+        .btn-dark:hover {
+            background:#ffffff !important;
+            color: #22223b !important;
+        }
+        .btn-light {
+            background: white !important;
+            color: #22223b !important;
+        }
+        .btn-light:hover {
+            background: var(--accent) !important;
+            color: var(--white) !important;
+        }
+        .team-section .team-row {
+            justify-content: center;
+            gap: 2.5em;
+        }
+        .team-member.team-animate {
+            opacity: 0;
+            transform: translateY(40px) scale(0.97);
+            transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+        }
+        .team-member.team-animate.visible {
+            opacity: 1;
+            transform: translateY(0) scale(1);
+        }
+        .section-visual, .hero-section, .blog-section, .quote-carousel-container {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.7s cubic-bezier(.4,0,.2,1), transform 0.7s cubic-bezier(.4,0,.2,1);
+        }
+        .section-visual.visible, .hero-section.visible, .blog-section.visible, .quote-carousel-container.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .team-section .section-content {
+            background: var(--white);
+            border-radius: 12px;
+        }
+        #crisis-help {
+            background-color: #22223b;
+        }
+        #crisis-help ul, p {
+            color: white;
+        }
+        #crisis-help ul li a{
+            color: white;
+        }
+        /* Button Styles */
+        .btn-intro, .btn-hero, .btn-blog-read, .btn-blog-write, .btn-about, .btn-appointment, .btn-contact {
+            border-radius: 6px;
+            padding: 0.9em 2.2em;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .btn-intro {
+            background: #ffffff;
+            color: #000000;
+            font-weight: bold; /* Make the button text visually distinct */
+        }
+
+        .btn-intro:hover {
+            background: #f2f2f7 !important;
+            color: #22223b !important;
+        }
+
+        .btn-hero {
+            background: #22223b;
+            color: #ffffff;
+        }
+
+        .btn-hero:hover {
+            background: #4a4e69;
+            color: #ffffff;
+        }
+
+        .btn-about {
+            background: #000000;
+            color: #ffffff;
+        }
+
+        .btn-about:hover {
+            background: #ffffff;
+            color: #000000;
+        }
+
+        .btn-appointment {
+            background: #fefefe;
+            color: var(--black);
+        }
+
+        .btn-appointment:hover {
+            background: #4a4e69;
+            color: #ffffff;
+        }
+
+        .btn-contact {
+            background: #4a4e69;
+            color: #ffffff;
+        }
+
+        .btn-contact:hover {
+            background: #22223b;
+            color: #ffffff;
+        }
+
+        /* Style for heading text */
+        .intro-heading {
+            color: #e9eafc; /* Different color for the heading text */
+            font-size: 2.5em;
+            font-weight: 300;
+            margin-bottom: 0.4em;
+            letter-spacing: 0.5px;
+        }
+
+        /* Forcefully apply styles to .btn-intro */
+        .btn-intro {
+            background:#22223b; /* Ensure no other rules override this */
+            color: white;
+            font-weight: bold; /* Make the button text visually distinct */
+            border-radius: 6px;
+            padding: 0.9em 2.2em;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+            margin-top: 50px;
+        }
+
+        .btn-intro:hover {
+            background: #f2f2f7 !important; /* Ensure hover styles are applied */
+            color: #22223b !important;
+        }
+
+        /* General button styles */
+        .btn {
+            border-radius: 6px;
+            padding: 0.9em 2.2em;
+            font-size: 1em;
+            text-decoration: none;
+            display: inline-block;
+            transition: background 0.2s, color 0.2s, transform 0.2s;
+        }
+
+        .btn-intro:hover {
+            background: #f2f2f7;
+            color: #22223b;
+        }
+
+        /* Hero button */
+        .btn-hero {
+            background: white;
+            color: #22223b;
+        }
+
+        .btn-hero:hover {
+            background: #4a4e69;
+            color: #ffffff;
+        }
+
+        /* Blog read button */
+        .btn-blog-read {
+            background: #22223b;
+            color: #ffffff;
+        }
+
+        .btn-blog-read:hover {
+            background: white;
+            color: #22223b;
+        }
+
+        .btn-blog-write {
+            background: #22223b;
+            color: #ffffff;
+        }
+
+        .btn-blog-write:hover {
+            background: white;
+            color: #22223b;
+        }
+
+        /* About button */
+        .btn-about {
+            background: white;
+            color: #22223b;
+        }
+
+        .btn-about:hover {
+            background: #4a4e69;
+            color: #ffffff;
+        }
+
+        /* Appointment button */
+        .btn-appointment {
+            background: #22223b;
+            color: white;
+        }
+
+        .btn-appointment:hover {
+            background: #4a4e69;
+            color: #ffffff;
+        }
+
+        /* Contact button */
+        .btn-contact {
+            background: #22223b;
+            color: #ffffff;
+        }
+
+        .btn-contact:hover {
+            background: white;
+            color: #22223b;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav id="navbar">
+        <div class="logo">
+            <h1 class="p3" style=" font-family: Poppins, sans-serif; font-weight: 200;">PERSONA</h1>
+        </div>
+        <ul id="menuList">
+            <li><a href="#" class="active">HOME</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#crisis-help">FIND HELP</a></li>
+            <li><a href="{% url 'get_educated' %}">LEARN</a></li>
+            <li><a href="#team">TEAM</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <a href="#get-started" class="cta-btn btn-dark">Get Started</a>
+            <a href="/signup" class="cta-btn btn-light">Sign Up</a>
+        </div>
+        <div class="menu-icon" id="menuToggle">
+            <i class="fa-solid fa-bars"></i>
+        </div>
+    </nav>
+    <div class="nav-overlay" id="navOverlay"></div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const menuToggle = document.getElementById('menuToggle');
+            const menuList = document.getElementById('menuList');
+            const navOverlay = document.getElementById('navOverlay');
+            const nav = document.getElementById('navbar');
+            const MOBILE_WIDTH = 700;
+
+            function isMobile() {
+                return window.innerWidth <= MOBILE_WIDTH;
+            }
+
+            function openMenu() {
+                menuList.classList.add('open');
+                navOverlay.classList.add('open');
+                document.body.style.overflow = 'hidden';
+            }
+
+            function closeMenu() {
+                menuList.classList.remove('open');
+                navOverlay.classList.remove('open');
+                document.body.style.overflow = '';
+            }
+
+            menuToggle.addEventListener('click', function() {
+                if (isMobile()) {
+                    if (!menuList.classList.contains('open')) {
+                        openMenu();
+                    } else {
+                        closeMenu();
+                    }
+                }
+            });
+
+            navOverlay.addEventListener('click', function() {
+                closeMenu();
+            });
+
+            // Close menu on link click (mobile)
+            menuList.querySelectorAll('a').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.startsWith('#')) {
+                        e.preventDefault();
+                        const target = document.querySelector(href);
+                        if (target) {
+                            closeMenu();
+                            setTimeout(() => {
+                                target.scrollIntoView({behavior: 'smooth'});
+                            }, 100); // Wait for menu to close
+                        }
+                    } else {
+                        closeMenu();
+                    }
+                });
+            });
+
+            // Responsive: close menu if resizing to desktop
+            window.addEventListener('resize', function() {
+                if (!isMobile()) {
+                    closeMenu();
+                }
+            });
+
+            // Navbar shadow on scroll
+            window.addEventListener('scroll', function() {
+                if(window.scrollY > 60) nav.classList.add('scrolled');
+                else nav.classList.remove('scrolled');
+            });
+
+            // Carousel functionality for all carousels
+            function setupCarousel(carouselId) {
+                const container = document.getElementById(carouselId);
+                if (!container) return;
+                const slides = container.querySelectorAll('.quote-slide');
+                let current = 0;
+                let timer = null;
+
+                function showSlide(idx) {
+                    slides.forEach((slide, i) => {
+                        slide.classList.toggle('active', i === idx);
+                    });
+                    current = idx;
+                }
+
+                function nextSlide() {
+                    showSlide((current + 1) % slides.length);
+                }
+
+                function prevSlide() {
+                    showSlide((current - 1 + slides.length) % slides.length);
+                }
+
+                // Button controls
+                container.querySelectorAll('.carousel-btn').forEach(btn => {
+                    btn.addEventListener('click', function() {
+                        if (btn.dataset.dir === 'next') nextSlide();
+                        else prevSlide();
+                        resetTimer();
+                    });
+                });
+
+                // Auto-advance every 7s
+                function resetTimer() {
+                    if (timer) clearInterval(timer);
+                    timer = setInterval(nextSlide, 7000);
+                }
+                resetTimer();
+
+                // Pause on hover (desktop)
+                container.addEventListener('mouseenter', () => { if (timer) clearInterval(timer); });
+                container.addEventListener('mouseleave', resetTimer);
+            }
+
+            // Setup all carousels
+            ['carousel-1','carousel-2','carousel-3','carousel-4'].forEach(setupCarousel);
+
+            // Smooth scroll for anchor links (for browsers that don't support scroll-behavior)
+            document.querySelectorAll('a[href^="#"]').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    const href = this.getAttribute('href');
+                    if (href && href.length > 1) {
+                        const target = document.querySelector(href);
+                        if (target) {
+                            e.preventDefault();
+                            target.scrollIntoView({behavior: 'smooth'});
+                        }
+                    }
+                });
+            });
+
+            // Animate sections on scroll (fade-in)
+            function revealOnScroll() {
+                const reveals = document.querySelectorAll(
+                    '.section-visual, .hero-section, .blog-section, .quote-carousel-container'
+                );
+                const windowHeight = window.innerHeight;
+                reveals.forEach(function(section) {
+                    const sectionTop = section.getBoundingClientRect().top;
+                    if (sectionTop < windowHeight * 0.92) {
+                        section.classList.add('visible');
+                    }
+                });
+            }
+            window.addEventListener('scroll', revealOnScroll);
+            window.addEventListener('resize', revealOnScroll);
+            revealOnScroll();
+
+            // Animate team members in sequence when team section is visible
+            function animateTeamMembers() {
+                const teamSection = document.querySelector('.team-section');
+                if (!teamSection) return;
+                const teamMembers = teamSection.querySelectorAll('.team-member.team-animate');
+                if (!teamSection.classList.contains('visible')) return;
+                teamMembers.forEach((member, i) => {
+                    setTimeout(() => member.classList.add('visible'), 200 + i * 200);
+                });
+            }
+            // Observe team section visibility
+            function onScrollTeam() {
+                const teamSection = document.querySelector('.team-section');
+                if (teamSection && teamSection.classList.contains('visible')) {
+                    animateTeamMembers();
+                    window.removeEventListener('scroll', onScrollTeam);
+                }
+            }
+            window.addEventListener('scroll', onScrollTeam);
+            onScrollTeam();
+        });
+    </script>
+
+    <!-- Intro Section (modern, above hero) -->
+    <section class="section-visual intro-section" id="intro">
+        <div class="section-box">
+            <div class="section-content intro-content" style="max-width: 680px; text-align: center;">
+                <h1 class="intro-heading">
+                    Empowering Your Mental Health Journey
+                </h1>
+                <p class="text-white" style="font-size:1.22em; font-weight:300; line-height:1.7; margin-bottom:0;">
+                    Persona is a modern mental health platform designed to support, educate, and connect. Access trusted resources, share your story, and find compassionate help—wherever you are on your path to well-being.
+                </p>
+                <a href="#get-started" class="btn btn-intro"><i class="fa-solid fa-rocket"></i> Get Started</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Carousel -->
+    <div class="quote-carousel-container">
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <div class="quote-text">"There is hope, even when your brain tells you there isn’t." </div>
+                <div class="quote-author">— John Green</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text">"You don’t have to control your thoughts. You just have to stop letting them control you."</div>
+                <div class="quote-author">— Dan Millman</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text">"Mental health…is not a destination, but a process. It’s about how you drive, not where you’re going."</div>
+                <div class="quote-author">— Noam Shpancer, PhD</div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn btn-dark" data-carousel="1" data-dir="prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn btn-dark" data-carousel="1" data-dir="next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Hero Section (chatbot, image on right) -->
+    <section class=" hero-section" id="hero">
+        <div class="section-box">
+            <div class="section-content-2" style="max-width: 600px;">
+                <h1>Your Mental Health Matters</h1>
+                <p>
+                    Persona is your web-based mental health companion, supporting you through challenges like anxiety, depression, ADHD, PTSD, and more. We provide accessible resources, information, and a supportive chatbot to help you manage your well-being and thrive.
+                </p>
+                <a href="{% url 'chatbot_view' %}" class="btn-hero"><i class="fa-solid fa-comments"></i> Start Chat</a>
+            </div>
+        </div>
+        <div class="section-img" style="background-image: url('https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=800&q=80');"></div>
+    </section>
+
+    <!-- Quote Carousel 2 -->
+    <div class="quote-carousel-container-2">
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <div class="quote-text text-white">"What mental health needs is more sunlight, more candor, and more unashamed conversation."</div>
+                <div class="quote-author text-white">— Glenn Close</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text text-white">"You are not your illness. You have an individual story to tell. You have a name, a history, a personality. Staying yourself is part of the battle."</div>
+                <div class="quote-author text-white">— Julian Seifter</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text text-white">"Self-care is how you take your power back."</div>
+                <div class="quote-author text-white">— Lalah Delia</div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn btn-light" data-carousel="2" data-dir="prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn btn-light" data-carousel="2" data-dir="next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Blog Section -->
+    <section class="blog-section" id="blog-highlight-section">
+        <div class="blog-img" style="background-image: url('https://images.unsplash.com/photo-1519125323398-675f0ddb6308?auto=format&fit=crop&w=1200&q=80');"></div>
+        <div class="blog-box">
+            <div class="section-content">
+                <h2><i class="fa-solid fa-book-open"></i> Share & Explore Mental Health Stories</h2>
+                <p>
+                    Everyone has a story. Inspire others or find inspiration by reading real journeys of resilience, hope, and healing. Our blog is a safe space to express, connect, and grow together.
+                </p>
+                <div class="blog-buttons">
+                    <a href= "{% url 'read_posts' %}" class ="btn-blog-read"><i class="fa-solid fa-book-reader"></i> Read Blogs</a>
+                    <a href="{% url 'create_post' %}" class="btn-blog-write"><i class="fa-solid fa-pen"></i> Write Your Story</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Carousel 3 -->
+    <div class="quote-carousel-container">
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <div class="quote-text text-white">"Healing takes time, and asking for help is a courageous step."</div>
+                <div class="quote-author text-white">— Mariska Hargitay</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text text-white">"You, yourself, as much as anybody in the entire universe, deserve your love and affection."</div>
+                <div class="quote-author text-white">— Buddha</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text text-white">"Your present circumstances don’t determine where you can go; they merely determine where you start."</div>
+                <div class="quote-author text-white">— Nido Qubein</div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn btn-dark" data-carousel="3" data-dir="prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn btn-dark" data-carousel="3" data-dir="next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- About Section -->
+    <section class="hero-section" id="about">
+        <div class="section-img" style="background-image: url('https://images.unsplash.com/photo-1465101046530-73398c7f28ca?auto=format&fit=crop&w=1200&q=80');"></div>
+        <div class="section-box">
+            <div class="section-content-2">
+                <h2><i class="fa-solid fa-heart"></i> About Persona</h2>
+                <p>
+                    Our mission is to make mental health support accessible, compassionate, and stigma-free. Meet our team and learn more about our approach.
+                </p>
+                <a href="#team" class="btn btn-about"><i class="fa-solid fa-users"></i> Meet the Team</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Carousel 4 -->
+    <div class="quote-carousel-container-2">
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <div class="quote-text">"Sometimes the people around you won’t understand your journey. They don’t need to, it’s not for them."</div>
+                <div class="quote-author">— Joubert Botha</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text">"There is no standard normal. Normal is subjective. There are seven billion versions of normal on this planet."</div>
+                <div class="quote-author">— Matt Haig</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text">"It’s okay to not be okay. Just don’t give up."</div>
+                <div class="quote-author">— Unknown</div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn btn-light" data-carousel="4" data-dir="prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn btn-light" data-carousel="4" data-dir="next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Get Started Section (after about) -->
+    <section class="section-visual" id="get-started">
+        <div class="section-box">
+            <div class="section-content">
+                <h2 style="color: var(--primary); margin-bottom:0.5em;"><i class="fa-solid fa-rocket"></i> Get Started with Persona</h2>
+                <p style="color: var(--accent); margin-bottom:1.5em;">
+                    Ready to take the next step? Create your free account to access personalized support, share your story, and connect with our community.
+                </p>
+                <div style="display: flex; gap: 1em;">
+                    <a href="/signup" class="cta-btn btn-dark" style="font-size:1.08em;"><i class="fa-solid fa-user-plus"></i> Sign Up</a>
+                    <a href="/signin" class="cta-btn btn-light" style="font-size:1.08em;"><i class="fa-solid fa-arrow-right-to-bracket"></i> Get Started</a>
+                </div>
+            </div>
+        </div>
+        <div class="section-img" style="background-image: url('/home/static/media/teslariu-mihai-5s86jUsBPEU-unsplash.jpg');"></div>
+    </section>
+
+    <!-- Appointment Section -->
+    <section class="section-visual" id="appointments">
+        <div class="section-img" style="background-image: url('https://images.unsplash.com/photo-1465101178521-c1a9136a3b99?auto=format&fit=crop&w=1200&q=80');"></div>
+        <div class="section-box">
+            <div class="section-content">
+                <h2 class="text-white"><i class="fa-solid fa-calendar-check"></i> Book an Appointment</h2>
+                <p class="text-white">
+                    Ready to talk to a professional? Schedule a confidential session with a licensed mental health expert.
+                </p>
+                <a href="#" class="btn btn-appointment"><i class="fa-solid fa-calendar-plus"></i> Book Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Carousel 5 -->
+    <div class="quote-carousel-container">
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <div class="quote-text">"Promise me you’ll always remember: You’re braver than you believe, and stronger than you seem, and smarter than you think."</div>
+                <div class="quote-author">— A.A. Milne</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text">"You are allowed to be both a masterpiece and a work in progress simultaneously."</div>
+                <div class="quote-author">— Sophia Bush</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text">"Just because no one else can heal or do your inner work for you doesn’t mean you can, should, or need to do it alone."</div>
+                <div class="quote-author">— Lisa Olivera</div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn btn-dark" data-carousel="5" data-dir="prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn btn-dark" data-carousel="5" data-dir="next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Crisis Help Section -->
+    <section class="section-visual" id="crisis-help">
+        <div class="section-img" style="background-image: url('https://images.unsplash.com/photo-1503676382389-4809596d5290?auto=format&fit=crop&w=1200&q=80');"></div>
+        <div class="section-box">
+            <div class="section-content-2">
+                <h2><i class="fa-solid fa-triangle-exclamation"></i> In Crisis?</h2>
+                <p>
+                    If you or someone you know is in immediate danger, please seek help right away.
+                </p>
+                <ul>
+                    <li><strong>Emergency:</strong> 911</li>
+                    <li><strong>National Suicide Prevention Lifeline:</strong> 1-800-273-8255</li>
+                    <li><a href="#">More Crisis Resources</a></li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Carousel 6 -->
+    <div class="quote-carousel-container-2">
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <div class="quote-text text-white">"Start where you are. Use what you have. Do what you can."</div>
+                <div class="quote-author text-white">— Arthur Ashe</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text text-white">"You don’t have to be positive all the time. It’s perfectly okay to feel sad, angry, annoyed, frustrated, scared and anxious."</div>
+                <div class="quote-author text-white">— Lori Deschene</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text text-white">"Sometimes the smallest step in the right direction ends up being the biggest step of your life."</div>
+                <div class="quote-author text-white">— Naeem Callaway</div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn btn-light" data-carousel="6" data-dir="prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn btn-light" data-carousel="6" data-dir="next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Section -->
+    <section class="section-visual reverse" id="contact">
+        <div class="section-img" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=1200&q=80');"></div>
+        <div class="section-box">
+            <div class="section-content">
+                <h2><i class="fa-solid fa-envelope"></i> Contact</h2>
+                <p>
+                    Have questions or need support? Reach out to our team.
+                </p>
+                <a href="#" class="btn btn-contact"><i class="fa-solid fa-paper-plane"></i> Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quote Carousel 7 -->
+    <div class="quote-carousel-container">
+        <div class="quote-carousel">
+            <div class="quote-slide active">
+                <div class="quote-text">"Not until we are lost do we begin to understand ourselves."</div>
+                <div class="quote-author">— Henry David Thoreau</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text">"You, yourself, as much as anybody in the entire universe, deserve your love and affection."</div>
+                <div class="quote-author">— Buddha</div>
+            </div>
+            <div class="quote-slide">
+                <div class="quote-text">"Sometimes the people around you won’t understand your journey. They don’t need to, it’s not for them."</div>
+                <div class="quote-author">— Joubert Botha</div>
+            </div>
+            <div class="carousel-controls">
+                <button class="carousel-btn btn-dark" data-carousel="7" data-dir="prev"><i class="fa-solid fa-chevron-left"></i></button>
+                <button class="carousel-btn btn-dark" data-carousel="7" data-dir="next"><i class="fa-solid fa-chevron-right"></i></button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Team Section -->
+    <section class="section-visual team-section" id="team">
+        <div class="section-img" style="background-image: url('https://images.unsplash.com/photo-1515378791036-0648a3ef77b2?auto=format&fit=crop&w=1200&q=80');"></div>
+        <div class="section-box">
+            <div class="section-content">
+                <h2 class="mt-0" style="color: var(--primary);"><i class="fa-solid fa-user-group"></i> Our Team</h2>
+                <hr class="divider my-4" />
+                <div class="team-row">
+                    <div class="team-member team-animate">
+                        <img src="/static/media/WALEED.png" alt="Umar Ashiru">
+                        <h4>Umar Ashiru</h4>
+                        <p>Software Engineer<br><a href="mailto:waleedashir6@gmail.com"><i class="fa-solid fa-envelope"></i> Email</a></p>
+                    </div>
+                    <div class="team-member team-animate">
+                        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=400&q=80" alt="Jane Doe">
+                        <h4>Jane Doe</h4>
+                        <p>Clinical Psychologist<br><a href="mailto:jane.doe@email.com"><i class="fa-solid fa-envelope"></i> Email</a></p>
+                    </div>
+                    <div class="team-member team-animate">
+                        <img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?auto=format&fit=crop&w=400&q=80" alt="John Smith">
+                        <h4>John Smith</h4>
+                        <p>Therapist<br><a href="mailto:john.smith@email.com"><i class="fa-solid fa-envelope"></i> Email</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <div id="footer">
+        <ul>
+            <li><a href="#">HOME</a></li>
+            <li><a href="#">JOIN US</a></li>
+            <li><a href="#">CONTACT</a></li>
+            <li><a href="#">ABOUT</a></li>
+        </ul>
+        <h4>&copy; 2025 Persona. All Rights Reserved.</h4>
+    </div>
+    <script type="text/javascript" src="{% static 'js/script.js' %}"></script>
+    <script src="https://kit.fontawesome.com/f8e1a90484.js" crossorigin="anonymous"></script>
+
+</body>
+</html>
+</html>

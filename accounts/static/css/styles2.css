@@ -141,22 +141,4 @@ body{
     right: -30px;
     bottom: -80px;
 }
-
- color: #000000;
-
-    filter: blur(0.25px);
-    box-sizing: border-box;
-    border: 2px solid rgba(0, 0, 0, 0.603);
-    border-color: #000000a2;
-    white-space: nowrap;
-    width: 80%;
-    border-radius: 0.5px;
-    padding: 10px 15px;
-    font-weight: 00;
-    font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
-    border-spacing: 50px;
-    font-size: 15px;
-    letter-spacing: 2px;
-    text-align: center;
-
-
+}

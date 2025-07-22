@@ -1,0 +1,7 @@
+services:
+  - type: web
+    name: MentalHealth
+    env: python
+    buildCommand: "pip install -r requirements.txt"
+    startCommand: "gunicorn MentalHealth.wsgi"
+    deployCommand: "python manage.py migrate"
