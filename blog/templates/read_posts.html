@@ -1,114 +1,19 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Latest Posts - MentBlog</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <title>Community Stories - Persona</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel极狐官网地址="stylesheet">
     <link rel="stylesheet" href="{% static 'css/blog_style.css' %}">
-    <style>
-        nav {
-            background-color: white;
-        }
-        .posts-container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 0 5%;
-            margin-top: 5rem;
-        }
-        .blog-title{
-            position: relative;
-            left:0.1em;
-            font-size: 50px;
-            font-weight: 300;
-        }
-        .post-card {
-            padding: 2rem 0;
-            border-bottom: 1px solid var(--gray-200);
-        }
-        
-        .post-card:last-child {
-            border-bottom: none;
-        }
-        
-        .post-meta {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            font-size: 0.9rem;
-            color: var(--gray-500);
-        }
-        
-        .post-author {
-            font-weight: 600;
-            color: var(--black);
-        }
-        
-        .post-date {
-            margin-left: 0.5rem;
-        }
-        
-        .post-title {
-            font-size: 1.8rem;
-            margin-bottom: 0.75rem;
-        }
-        .post-title a{
-            text-decoration: none;
-            color:black;
-        }
-        .post-excerpt {
-            font-size: 1.1rem;
-            color: var(--gray-500);
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
-        
-        .post-tags {
-            display: flex;
-            gap: 0.5rem;
-            margin-bottom: 1rem;
-        }
-        
-        .tag {
-            background: var(--gray-100);
-            color: var(--gray-500);
-            padding: 0.25rem 0.75rem;
-            border-radius: 9999px;
-            font-size: 0.85rem;
-        }
-        
-        .post-image {
-            width: 100%;
-            height: 300px;
-            object-fit: cover;
-            border-radius: var(--radius);
-            margin-bottom: 1.5rem;
-        }
-        
-        .post-stats {
-            display: flex;
-            gap: 1.5rem;
-            color: var(--gray-500);
-            font-size: 0.9rem;
-        }
-        
-        @media (max-width: 768px) {
-            .post-title {
-                font-size: 1.5rem;
-            }
-            
-            .post-excerpt {
-                font-size: 1rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
     <nav id="navbar">
         <div class="logo">
-            <h1 class="p3" style=" font-family: Poppins, sans-serif; font-weight: 200;">PERSONA</h1>
+            <h1 class="p3" style="font-family: Poppins, sans-serif; font-weight: 200;">PERSONA</h1>
         </div>
         <ul id="menuList">
             <li><a href="{% url 'index' %}" class="active">HOME</a></li>
@@ -116,7 +21,7 @@
             <li><a href="{% url 'index' %}#crisis-help">CRISIS HELP</a></li>
             <li><a href="{% url 'get_educated' %}">LEARN</a></li>
             <li><a href="{% url 'index' %}#team">TEAM</a></li>
-       <li><a href="{% url 'create_post' %}" aria-label="Write a Blog">Write a Blog</a></li>
+            <li><a href="{% url 'create_post' %}" aria-label="Write a Blog">Write a Blog</a></li>
         </ul>
         <div class="navbar-actions">
             <a href="#get-started" class="cta-btn btn-dark">Get Started</a>
@@ -132,53 +37,54 @@
         </div>
     </nav>
 
-    <main class="posts-container">
-        <div class="hero">
-            <h1 class="blog-title">Latest Posts</h1>
-            <p class="hero-subtitle">Discover the latest stories and insights from our community of writers</p>
+    <div class="blog-container">
+        <div class="blog-header">
+            <h1>Community Stories</h1>
+            <p>Read real experiences and insights from people who understand what you're going through</p>
         </div>
         
-        <div class="posts-list">
+        <div class="posts-grid">
             {% for post in posts %}
             <article class="post-card">
-                <div class="post-meta">
-                    <img src="https://placeholder.pics/svg/36x36/DEDEDE/555555/avatar" alt="{{ post.name }}" class="author-avatar">
-                    <span class="post-author">{{ post.name }}</span>
-                    <span class="post-date">{{ post.created_at|date:"F d, Y" }}</span>
-                </div>
-                
-                <h2 class="post-title">
-                    <a href="{% url 'post_detail' post.id %}">{{ post.subject }}</a>
-                </h2>
-                
                 {% if post.attachment %}
-                <img src="{{ post.attachment.url }}" alt="Post image" class="post-image">
+                <img src="{{ post.attachment.url }}" alt="{{ post.subject }}" class="post-image">
+                {% else %}
+                <div class="post-image" style="background: #f0f0f0; display: flex; align-items: center; justify-content: center;">
+                    <i class="fas fa-image" style="font-size: 3rem; color: #ccc;"></i>
+                </div>
                 {% endif %}
                 
-                <p class="post-excerpt">{{ post.body|truncatewords:30 }}</p>
-                
-                <div class="post-tags">
-                    <span class="tag">Technology</span>
-                    <span class="tag">Web Development</span>
-                </div>
-                
-                <div class="post-stats">
-                    <span>{{ post.reading_time }} min read</span>
-                    <button class="clap-btn">
-                        <span>👏</span> 42
-                    </button>
+                <div class="post-content">
+                    <div class="post-meta">
+                        <img src="https://ui-avatars.com/api/?name={{ post.name }}&background=random" alt="{{ post.name }}" class="author-avatar">
+                        <span class="post-author">{{ post.name }}</span>
+                        <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
+                    </div>
+                    
+                    <h3 class="post-title">
+                        <a href="{% url 'post_detail' post.id %}">{{ post.subject }}</a>
+                    </h3>
+                    
+                    <p class="post-excerpt">{{ post.body|truncatewords:30 }}</p>
+                    
+                    <div class="post-tags">
+                        <span class="tag">Mental Health</span>
+                        <span class="tag">Journey</span>
+                    </div>
+                    
+                    <a href="{% url 'post_detail' post.id %}" class="read-more">Read Full Story</a>
                 </div>
             </article>
             {% endfor %}
         </div>
-    </main>
+    </div>
 
     <div id="footer">
         <ul>
-            <li><a href="#">HOME</a></li>
-            <li><a href="#">JOIN US</a></li>
-            <li><a href="#">CONTACT</a></li>
-            <li><a href="#">ABOUT</a></li>
+            <li><a href="{% url 'index' %}">HOME</a></li>
+            <li><a href="{% url 'index' %}#about">ABOUT</a></li>
+            <li><a href="{% url 'index' %}#contact">CONTACT</a></li>
+            <li><a href="{% url 'index' %}#team">TEAM</a></li>
         </ul>
         <h4>&copy; 2025 Persona. All Rights Reserved.</h4>
     </div>

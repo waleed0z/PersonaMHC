@@ -1,67 +1,76 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>{{ post.subject }} - MentBlog</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{{ post.subject }} - Persona</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'css/blog_style.css' %}">
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
-    <nav class="navbar" role="navigation" aria-label="Main navigation">
-        <a class="navbar-brand" href="/">
-            <span style="font-size:2.2rem;vertical-align:middle;">&#9998;</span>
-            MentBlog
-        </a>
-        <div class="nav-links">
-            <a class="nav-link" href="/read/" tabindex="1">Read Blogs</a>
-            <a class="nav-link" href="/create/" tabindex="2">Write a Blog</a>
+    <nav id="navbar">
+        <div class="logo">
+            <h1 class="p3" style="font-family: Poppins, sans-serif; font-weight: 200;">PERSONA</h1>
+        </div>
+        <ul id="menuList">
+            <li><a href="{% url 'index' %}" class="active">HOME</a></li>
+            <li><a href="{% url 'index' %}#about">ABOUT</a></li>
+            <li><a href="{% url 'index' %}#crisis-help">CRISIS HELP</a></li>
+            <li><a href="{% url 'get_educated' %}">LEARN</a></li>
+            <li><a href="{% url 'index' %}#team">TEAM</a></li>
+            <li><a href="{% url 'create_post' %}" aria-label="Write a Blog">Write a Blog</a></li>
+        </ul>
+        <div class="navbar-actions">
+            <a href="#get-started" class="cta-btn btn-dark">Get Started</a>
+            <a href="/signup" class="cta-btn btn-light">Sign In</a>
+        </div>
+        <div class="menu-toggle-container">
+            <div class="menu-icon" id="menuToggle">
+                <i class="fa-solid fa-bars"></i>
+            </div>
+            <div class="close-icon" id="closeIcon" style="display: none;">
+                <i class="fa-solid fa-times"></i>
+            </div>
         </div>
     </nav>
 
-    <main class="posts-container">
-        <article class="post-card">
-            <div class="post-meta">
-                <img src="https://placeholder.pics/svg/36x36/DEDEDE/555555/avatar" alt="{{ post.name }}" class="author-avatar">
+    <div class="post-detail-container">
+        <div class="post-detail-header">
+            <h1 class="post-detail-title">{{ post.subject }}</h1>
+            <div class="post-detail-meta">
+                <img src="https://ui-avatars.com/api/?name={{ post.name }}&background=random" alt="{{ post.name }}" class="author-avatar">
                 <span class="post-author">{{ post.name }}</span>
-                <span class="post-date">{{ post.created_at|date:"F d, Y" }}</span>
-            </div>
-            
-            <h1 class="post-title">{{ post.subject }}</h1>
-            
-            {% if post.attachment %}
-            <div class="post-image">
-                <img src="{{ post.attachment.url }}" alt="Post image" class="post-image">
-            </div>
-            {% endif %}
-            
-            <div class="post-content">
-                {{ post.body|linebreaks }}
-            </div>
-            
-            <div class="post-stats">
-                <span>{{ reading_time }} min read</span>
-                <button class="clap-btn">
-                    <span>👏</span> 42
-                </button>
-            </div>
-        </article>
-    </main>
-
-    <footer>
-        <div class="footer-content">
-            <div class="copyright">
-                &copy; 2023 MentBlog. All rights reserved.
-            </div>
-            <div class="footer-links">
-                <a href="mailto:support@mentblog.com" aria-label="Contact Support">Contact Support</a>
-                <span class="separator">|</span>
-                <a href="{% url 'read_posts' %}" aria-label="Read Blogs">Read Blogs</a>
-                <span class="separator">|</span>
-                <a href="{% url 'create_post' %}" aria-label="Write a Blog">Write a Blog</a>
+                <span class="post-date">{{ post.created_at|date:"M d, Y" }}</span>
+                <span class="reading-time">{{ reading_time }} min read</span>
             </div>
         </div>
-    </footer>
+        
+        {% if post.attachment %}
+        <img src="{{ post.attachment.url }}" alt="{{ post.subject }}" class="post-detail-image">
+        {% endif %}
+        
+        <div class="post-content">
+            {{ post.body|linebreaks }}
+        </div>
+        
+        <div class="post-actions">
+            <a href="{% url 'read_posts' %}" class="btn-back">
+                <i class="fas fa-arrow-left"></i> Back to Stories
+            </a>
+        </div>
+    </div>
+
+    <div id="footer">
+        <ul>
+            <li><a href="{% url 'index' %}">HOME</a></li>
+            <li><a href="{% url 'index' %}#about">ABOUT</a></li>
+            <li><a href="{% url 'index' %}#contact">CONTACT</a></li>
+            <li><a href="{% url 'index' %}#team">TEAM</a></li>
+        </ul>
+        <h4>&copy; 2025 Persona. All Rights Reserved.</h4>
+    </div>
 </body>
 </html>

@@ -1,153 +1,20 @@
-<!DOCTYPE html>
 {% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create Post - MentBlog</title>
-    <link href="https://fonts.googleapis.com/css?family=Poppins:400,600&display=swap" rel="stylesheet">
+    <title>Share Your Story - Persona</title>
+    <link href="https://fonts.googleapis.com/css?family=Poppins:300,400,500,600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="{% static 'css/blog_style.css' %}">
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
-    <style>
-        nav{
-            background-color: white;
-        }
-        .editor-container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 0 5%;
-            margin-top: 7em;
-        }
-        
-        .form-group {
-            margin-bottom: 3rem;
-        }
-        
-        .form-label {
-            display: block;
-            font-weight: 600;
-            margin-bottom: 0.8rem;
-            color: var(--gray-700);
-            font-size: 1.1rem;
-        }
-        
-        .form-input {
-            width: 100%;
-            padding: 1.2rem;
-            border: 1px;
-            border-radius: var(--radius);
-            font-size: 1.2rem;
-            transition: border-color white;
-            font-family: 'Georgia', serif;
-        }
-        
-        .form-input:focus {
-            outline: none;
-            border-color: var(--black);
-            box-shadow: 0 0 0 2px white;
-        }
-        
-        textarea.form-input {
-            min-height: 400px;
-            resize: vertical;
-            line-height: 1.7;
-        }
-        
-        .file-upload {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-        
-        .file-upload-label {
-            background: var(--gray-100);
-            padding: 0.75rem 1.5rem;
-            border-radius: var(--radius);
-            cursor: pointer;
-            transition: background var(--transition);
-        }
-        
-        .file-upload-label:hover {
-            background: var(--gray-200);
-        }
-        
-        .publish-btn {
-            background: var(--black);
-            color: var(--white);
-            padding: 1rem 2.5rem;
-            font-size: 1.1rem;
-            font-weight: 600;
-            border-radius: 9999px;
-            cursor: pointer;
-            transition: all var(--transition);
-            border: none;
-            font-family: 'Poppins', sans-serif;
-        }
-        
-        .publish-btn:hover {
-            background: var(--gray-700);
-            transform: translateY(-2px);
-            box-shadow: var(--shadow);
-        }
-        .tip-content p{
-            color: black;
-        }
-        .sidebar {
-            background: var(--gray-100);
-            padding: 2.5rem;
-            border-radius: var(--radius);
-            margin-top: 3rem;
-        }
-        
-        .sidebar-title {
-            font-size: 1.4rem;
-            font-weight: 700;
-            margin-bottom: 1.5rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid var(--gray-200);
-        }
-        .tip {
-            display: flex;
-            gap: 1.2rem;
-            margin-bottom: 1.8rem;
-        }
-        
-        .tip-icon {
-            color: var(--accent);
-            font-size: 1.5rem;
-            margin-top: 0.3rem;
-        }
-        
-        .tip-content {
-            flex: 1;
-        }
-        
-        .tip-title {
-            font-weight: 600;
-            margin-bottom: 0.3rem;
-            font-size: 1.1rem;
-        }
-        
-        .tag {
-            background: var(--gray-100);
-            color: var(--gray-500);
-            padding: 0.4rem 1rem;
-            border-radius: 9999px;
-            font-size: 0.9rem;
-            margin-right: 0.5rem;
-            margin-bottom: 0.5rem;
-            display: inline-block;
-            font-family: 'Poppins', sans-serif;
-        }
-        .hero-title {
-            color: rgba(0, 0, 0, 0.164);
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 </head>
 <body>
+    <!-- Navigation (using existing navbar from base) -->
     <nav id="navbar">
         <div class="logo">
-            <h1 class="p3" style=" font-family: Poppins, sans-serif; font-weight: 200;">PERSONA</h1>
+            <h1 class="p3" style="font-family: Poppins, sans-serif; font-weight: 200;">PERSONA</h1>
         </div>
         <ul id="menuList">
             <li><a href="{% url 'index' %}" class="active">HOME</a></li>
@@ -171,81 +38,95 @@
         </div>
     </nav>
 
-    <main class="editor-container">
-        <h1 class="hero-title">Write your story....</h1>
-        <form action="{% url 'create_post' %}" method="post" enctype="multipart/form-data">
+    <div class="create-post-container">
+        <div class="create-post-header">
+            <h1>Share Your Mental Health Journey</h1>
+            <p>Your story could help others feel less alone. Write authentically and from the heart.</p>
+        </div>
+        
+        <form method="POST" enctype="multipart/form-data" class="create-post-form">
             {% csrf_token %}
+            
             <div class="form-group">
-                <input type="text" name="name" id="name" class="form-input" placeholder="Enter your name or alias" required>
+                <label class="form-label" for="name">Your Name</label>
+                <input class="form-control" type="text" name="name" id="name" placeholder="Enter your name or alias" required>
             </div>
             
             <div class="form-group">
-                <input type="text" name="subject" id="subject" class="form-input" placeholder="Catchy title that grabs attention" maxlength="200" required>
+                <label class="form-label" for="subject">Post Title</label>
+                <input class="form-control" type="text" name="subject" id="subject"
+                       placeholder="Catchy title that grabs attention" maxlength="200" required>
             </div>
             
             <div class="form-group">
-                <textarea name="body" id="body" class="form-input" placeholder="Write your story here..." required></textarea>
+                <label class="form-label" for="body">Your Story</label>
+                <textarea class="form-control" name="body" id="body"
+                          placeholder="Share your experiences, challenges, and triumphs..."
+                          required></textarea>
             </div>
             
             <div class="form-group">
-                <label class="form-label">Add an Image (Optional)</label>
+                <label class="form-label" for="attachment">Add Supporting Media</label>
                 <div class="file-upload">
-                    <label for="attachment" class="file-upload-label">
-                        <i class="fas fa-image"></i> Choose Image
-                    </label>
-                    <input type="file" name="attachment" id="attachment" class="hidden">
+                    <input type="file" name="attachment" id="attachment" class="form-control">
+                    <small class="form-text">Optional: Add images or documents that might help others</small>
                 </div>
             </div>
             
-            <div class="form-group text-right">
-                <button type="submit" class="publish-btn">Publish Post</button>
+            <div class="form-group text-center">
+                <button class="btn-submit" type="submit">
+                    <i class="fas fa-paper-plane"></i> Publish Story
+                </button>
             </div>
         </form>
+    </div>
+
+    <!-- Tips sidebar -->
+    <div class="create-post-sidebar">
+        <h2 class="sidebar-title">Writing Tips</h2>
         
-        <div class="sidebar">
-            <h2 class="sidebar-title">Writing Tips</h2>
-            
-            <div class="tip">
-                <div class="tip-icon">💡</div>
-                <div class="tip-content">
-                    <div class="tip-title">Craft a Compelling Headline</div>
-                    <p>Your headline is the first thing readers see. Make it clear, intriguing, and relevant to your content.</p>
-                </div>
-            </div>
-            
-            <div class="tip">
-                <div class="tip-icon">💡</div>
-                <div class="tip-content">
-                    <div class="tip-title">Use Clear Paragraphs</div>
-                    <p>Break up your content into short paragraphs for better readability. Use subheadings to organize your thoughts.</p>
-                </div>
-            </div>
-            
-            <div class="tip">
-                <div class="tip-icon">💡</div>
-                <div class="tip-content">
-                    <div class="tip-title">Add Visuals</div>
-                    <p>Images help illustrate your points and make your post more engaging. Use high-quality, relevant images.</p>
-                </div>
-            </div>
-            
-            <h2 class="sidebar-title">Popular Tags</h2>
-            <div>
-                <span class="tag">Technology</span>
-                <span class="tag">Web Development</span>
-                <span class="tag">Design</span>
-                <span class="tag">Programming</span>
-                <span class="tag">Python</span>
-                <span class="tag">Django</span>
+        <div class="tip">
+            <div class="tip-icon">💡</div>
+            <div class="tip-content">
+                <div class="tip-title">Craft a Compelling Headline</div>
+                <p>Your headline is the first thing readers see. Make it clear, intriguing, and relevant to your content.</p>
             </div>
         </div>
-    </main>
+        
+        <div class="tip">
+            <div class="tip-icon">💡</div>
+            <div class="tip-content">
+                <div class="tip-title">Use Clear Paragraphs</div>
+                <p>Break up your content into short paragraphs for better readability. Use subheadings to organize your thoughts.</p>
+            </div>
+        </div>
+        
+        <div class="tip">
+            <div class="tip-icon">💡</div>
+            <div class="tip-content">
+                <div class="tip-title">Add Visuals</div>
+                <p>Images help illustrate your points and make your post more engaging. Use high-quality, relevant images.</p>
+            </div>
+        </div>
+        
+        <h2 class="sidebar-title">Popular Tags</h2>
+        <div class="popular-tags">
+            <span class="tag">Anxiety</span>
+            <span class="tag">Depression</span>
+            <span class="tag">Self-Care</span>
+            <span class="tag">Recovery</span>
+            <span class="tag">Wellness</span>
+            <span class="tag">Community</span>
+        </div>
+    </div>
+
+    <!-- Footer -->
     <div id="footer">
         <ul>
-            <li><a href="#">HOME</a></li>
-            <li><a href="#">JOIN US</a></li>
-            <li><a href="#">CONTACT</a></li>
-            <li><a href="#">ABOUT</a></li>
+            <li><a href="{% url 'index' %}">HOME</a></li>
+            <li><a href="{% url 'index' %}#about">ABOUT</a></li>
+            <li><a href="{% url 'index' %}#contact">CONTACT</a></li>
+            <li><a href="{% url 'index' %}#team">TEAM</a></li>
         </ul>
         <h4>&copy; 2025 Persona. All Rights Reserved.</h4>
     </div>
@@ -259,9 +140,9 @@
         
         // Form submission handler
         document.querySelector('form').addEventListener('submit', function() {
-            const btn = document.querySelector('.publish-btn');
+            const btn = document.querySelector('.btn-submit');
             btn.disabled = true;
-            btn.textContent = 'Publishing...';
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publishing...';
         });
     </script>
 </body>
