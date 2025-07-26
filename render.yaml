@@ -4,5 +4,5 @@ services:
     env: python
     buildCommand: "pip install -r rq_test.txt"
     deployCommand: "python manage.py migrate"
-    startCommand: "gunicorn MentalHealth"
+    startCommand: "gunicorn MentalHealth.wsgi"
 
