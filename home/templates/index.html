@@ -460,7 +460,7 @@
             .section-img, .section-box { min-width: 100vw; width: 100vw; }
             .section-content { margin: 2em auto; }
         }
-        @media screen and (max-width: 1024px) {
+        @media screen and (max-width: 768px) {
             nav {
                 padding: 0 1em;
                 max-width: 100vw;
@@ -469,7 +469,7 @@
                 display: none;
                 flex-direction: column;
                 position: absolute;
-                top: 0px;
+                top: 60px;
                 left: 0;
                 width: 100vw;
                 max-width: 100vw;
@@ -506,7 +506,7 @@
                 padding: 1.2em 0.7em;
                 margin: 0.7em 0;
             }
-        }   
+        }
         @media screen and (max-width: 600px) {
             .quote-carousel { min-height: 150px; }
             .quote-text { font-size: 1.05em; }
@@ -763,7 +763,7 @@
             <a href="/signup" class="cta-btn btn-light">Sign Up</a>
         </div>
         <div class="menu-icon" id="menuToggle">
-            <i class="fa-solid fa-bars"></i>
+            <i class="fa-solid fa-bars" id="menuIcon"></i>
         </div>
     </nav>
     <div class="nav-overlay" id="navOverlay"></div>
@@ -773,6 +773,7 @@
             const menuList = document.getElementById('menuList');
             const navOverlay = document.getElementById('navOverlay');
             const nav = document.getElementById('navbar');
+            const menuIcon = document.getElementById('menuIcon');
             const MOBILE_WIDTH = 700;
 
             function isMobile() {
@@ -783,12 +784,16 @@
                 menuList.classList.add('open');
                 navOverlay.classList.add('open');
                 document.body.style.overflow = 'hidden';
+                menuIcon.classList.remove('fa-bars');
+                menuIcon.classList.add('fa-times');
             }
 
             function closeMenu() {
                 menuList.classList.remove('open');
                 navOverlay.classList.remove('open');
                 document.body.style.overflow = '';
+                menuIcon.classList.remove('fa-times');
+                menuIcon.classList.add('fa-bars');
             }
 
             menuToggle.addEventListener('click', function() {
