@@ -479,6 +479,9 @@ nav ul li a:hover, nav ul li a.active {
   .section-content { margin: 2vw; }
   .team-row { gap: 1em; }
   .hero-box .section-content, .blog-box .section-content { margin-top: 1em; }
+  .navbar-actions {
+    display: none;
+  }
 }
 @media (max-width: 900px) {
   nav ul {
