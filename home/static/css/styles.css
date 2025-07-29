@@ -360,11 +360,14 @@ nav ul li a:hover, nav ul li a.active {
 }
 #footer {
   border-top: 1px solid var(--muted);
-  padding: 2.2em 0 1.2em 0;
+  padding: 2.2em 0 3em 0; /* Increased bottom padding */
   text-align: center;
-  margin-top: 0;
+  margin-top: 2em;
   color: var(--muted);
   font-weight: 300;
+  position: relative;
+  z-index: 100; /* Higher z-index */
+  background: white; /* Ensure visibility */
 }
 #footer ul {
   list-style: none;
@@ -476,20 +479,64 @@ nav ul li a:hover, nav ul li a.active {
 }
 
 @media (max-width: 900px) {
-  .section-content { margin: 2vw; }
-  .team-row { gap: 1em; }
-  .hero-box .section-content, .blog-box .section-content { margin-top: 1em; }
-}
-@media (max-width: 900px) {
-  nav ul {
-      gap: 1em;
+  body {
+    padding-bottom: 60px; /* Reduce footer space */
   }
-}
-@media (max-width: 900px) {
-  .section-visual { flex-direction: column; }
-  .section-visual.reverse { flex-direction: column; }
-  .section-img, .section-box { min-width: 100vw; width: 100vw; }
-  .section-content { margin: 2em auto; }
+  
+  .navbar-actions {
+    display: none; /* Hide desktop buttons */
+  }
+  
+  .mobile-nav-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5em;
+    padding: 1em;
+  }
+  
+  /* Hide mobile buttons on desktop */
+  .mobile-nav-buttons {
+    display: none;
+  }
+  
+  @media (max-width: 900px) {
+    .mobile-nav-buttons {
+      display: flex; /* Show on mobile */
+    }
+  }
+  
+  .menu-toggle-container {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+  }
+  
+  .menu-icon, .close-icon {
+    font-size: 1.5em;
+    padding: 5px;
+  }
+  
+  .section-content {
+    margin: 1vw;
+    padding: 1em 0.8em;
+  }
+  
+  nav ul {
+    top: 50px; /* Adjust menu position */
+  }
+  
+  #footer {
+    padding: 1em 0 1.5em 0; /* Reduce footer padding */
+  }
+  
+  #footer ul {
+    gap: 1em; /* Reduce link spacing */
+  }
+  
+  #footer ul li a {
+    font-size: 0.9em; /* Reduce font size */
+    padding: 0.1em 0.4em;
+  }
 }
 @media (max-width: 1024px) {
 
@@ -541,7 +588,7 @@ nav ul li a:hover, nav ul li a.active {
       padding: 1.2em 0.7em;
       margin: 0.7em 0;
   }
-}   
+}
 @media (max-width: 600px) {
   .quote-carousel { min-height: 150px; }
   .quote-text { font-size: 1.05em; }

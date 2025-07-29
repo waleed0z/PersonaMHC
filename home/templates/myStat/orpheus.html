@@ -2,6 +2,8 @@
 {% load static %}
 <html lang="en">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- Google Fonts & FontAwesome -->
     <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300&display=swap" rel="stylesheet">
@@ -20,6 +22,11 @@
             <li><a href="#crisis-help">CRISIS HELP</a></li>
             <li><a href="{% url 'get_educated' %}">LEARN</a></li>
             <li><a href="#team">TEAM</a></li>
+            <!-- Mobile buttons -->
+            <li class="mobile-nav-buttons">
+                <a href="/signup" class="btn btn-dark">Get Started</a>
+                <a href="/login" class="btn btn-light">Sign In</a>
+            </li>
         </ul>
         <div class="navbar-actions">
             <a href="/signup" class="cta-btn btn-dark">Get Started</a>
@@ -355,5 +362,4 @@
     <script src="https://kit.fontawesome.com/f8e1a90484.js" crossorigin="anonymous"></script>
 
 </body>
-</html>
 </html>
