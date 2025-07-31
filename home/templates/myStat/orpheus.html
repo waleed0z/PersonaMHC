@@ -2,9 +2,9 @@
 {% load static %}
 <html lang="en">
 <head>
+    <!-- Google Fonts & FontAwesome -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- Google Fonts & FontAwesome -->
     <link type="text/css" rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link href="https://fonts.googleapis.com/css?family=Poppins:300&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -22,16 +22,10 @@
             <li><a href="#crisis-help">CRISIS HELP</a></li>
             <li><a href="{% url 'get_educated' %}">LEARN</a></li>
             <li><a href="#team">TEAM</a></li>
-            <!-- Mobile buttons -->
-            <li class="mobile-nav-buttons">
-                <a href="/signup" class="btn btn-dark">Get Started</a>
-                <a href="/login" class="btn btn-light">Sign In</a>
-            </li>
+        
+            <a href="/signup" class="cta-btnn btn-dark">Get Started</a>
+            <a href="/login" class="cta-btnn btn-light">Sign In</a>
         </ul>
-        <div class="navbar-actions">
-            <a href="/signup" class="cta-btn btn-dark">Get Started</a>
-            <a href="/login" class="cta-btn btn-light">Sign In</a>
-        </div>
         <div class="menu-toggle-container">
             <div class="menu-icon" id="menuToggle">
                 <i class="fa-solid fa-bars"></i>
@@ -362,4 +356,5 @@
     <script src="https://kit.fontawesome.com/f8e1a90484.js" crossorigin="anonymous"></script>
 
 </body>
+</html>
 </html>
