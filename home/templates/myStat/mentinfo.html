@@ -474,10 +474,10 @@
 </div>
   <h1>Access more information on mental health</h1>
   <div id="search-section">
-    <form id="searchForm" onsubmit="fetchWikipediaSummary(); return false;">
-    <input type="text" id="topicInput" placeholder="Enter a mental illness (e.g., depression)">
-    <button onclick="fetchWikipediaSummary()">Search</button>
-  </form>
+    <form id="searchForm" onsubmit="fetchNIMHInfo(); return false;">
+   <input type="text" id="topicInput" placeholder="Enter a mental illness (e.g., depression)">
+   <button onclick="fetchNIMHInfo()">Search</button>
+ </form>
   </div>
 
   <div id="results">
@@ -516,7 +516,7 @@ function toggleIllness(header) {
     details.style.display = isVisible ? 'none' : 'block';
     icon.classList.toggle('rotate', !isVisible);
   }
-async function fetchWikipediaSummary() {
+async function fetchNIMHInfo() {
   let topicInput = document.getElementById('topicInput').value.trim();
   const title = document.getElementById('topicTitle');
   const summary = document.getElementById('topicSummary');
@@ -527,36 +527,87 @@ async function fetchWikipediaSummary() {
     return;
   }
 
-  // Bias the search toward mental health topics
-  topicInput = topicInput + " mental disorder";
-
   try {
-    const searchUrl = `https://en.wikipedia.org/w/rest.php/v1/search/page?q=${encodeURIComponent(topicInput)}&limit=1`;
+    // Step 1: Search for the topic on NIMH
+    // Use a proxy to avoid CORS issues
+    const proxyUrl = 'https://cors-anywhere.herokuapp.com/';
+    const searchUrl = `${proxyUrl}https://www.nimh.nih.gov/bin/search/search.json?q=${encodeURIComponent(topicInput)}`;
     const searchResponse = await fetch(searchUrl);
-    if (!searchResponse.ok) throw new Error('Search failed');
+    if (!searchResponse.ok) throw new Error('NIMH search failed');
     const searchData = await searchResponse.json();
 
-    if (!searchData.pages || searchData.pages.length === 0) {
+    if (!searchData.results || searchData.results.length === 0) {
       title.innerText = '';
-      summary.innerText = 'Sorry, no information found for this topic.';
+      summary.innerText = 'Sorry, no information found for this topic on NIMH.';
       return;
     }
 
-    const bestTitle = searchData.pages[0].key;
+    // Find the first result that's a health topic
+    const healthTopic = searchData.results.find(result =>
+      result.url.includes('/health/topics/')
+    );
 
-    const apiUrl = `https://en.wikipedia.org/api/rest_v1/page/html/${encodeURIComponent(bestTitle)}`;
-    const response = await fetch(apiUrl);
-    if (!response.ok) throw new Error('Topic not found');
+    if (!healthTopic) {
+      title.innerText = '';
+      summary.innerText = 'No dedicated health topic page found on NIMH.';
+      return;
+    }
 
-    const html = await response.text();
+    // Step 2: Fetch the health topic page
+    const topicUrl = `${proxyUrl}https://www.nimh.nih.gov${healthTopic.url}`;
+    const topicResponse = await fetch(topicUrl);
+    if (!topicResponse.ok) throw new Error('Topic page not found');
+    const htmlContent = await topicResponse.text();
 
-    title.innerText = bestTitle.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
-    summary.innerHTML = html;
+    // Step 3: Extract the summary using a temporary DOM parser
+    const parser = new DOMParser();
+    const doc = parser.parseFromString(htmlContent, 'text/html');
+    
+    // Find the main content container
+    const contentElement = doc.querySelector('.content-container') ||
+                           doc.querySelector('.main-content') ||
+                           doc.querySelector('article');
+    
+    if (!contentElement) {
+      throw new Error('Could not find content on NIMH page');
+    }
+
+    // Extract first 2 paragraphs as summary
+    const paragraphs = contentElement.querySelectorAll('p');
+    let summaryText = '';
+    for (let i = 0; i < Math.min(2, paragraphs.length); i++) {
+      if (paragraphs[i].textContent.trim().length > 0) {
+        summaryText += paragraphs[i].textContent.trim() + '\n\n';
+      }
+    }
+
+    title.innerText = healthTopic.title;
+    summary.innerHTML = ''; // Clear previous content
+    summary.appendChild(document.createTextNode(summaryText || 'Summary not available'));
+    
+    // Add a link to the full article
+    const link = document.createElement('a');
+    link.href = topicUrl;
+    link.target = '_blank';
+    link.innerText = 'Read full article on NIMH website';
+    link.style.display = 'block';
+    link.style.marginTop = '10px';
+    link.style.fontWeight = 'bold';
+    link.style.color = '#0066cc';
+    summary.appendChild(document.createElement('br'));
+    summary.appendChild(link);
+    
   } catch (error) {
     title.innerText = '';
-    summary.innerText = 'Sorry, no information found for this topic.';
+    summary.innerHTML = `
+      Sorry, could not retrieve information from NIMH.<br>
+      Error: ${error.message}<br>
+      <a href="https://www.nimh.nih.gov/health/topics" target="_blank">Visit NIMH Health Topics directly</a>
+    `;
+    console.error('NIMH API error:', error);
   }
 }
   </script>
+  <script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>
