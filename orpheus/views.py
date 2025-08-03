@@ -8,9 +8,6 @@ import json
 from .chatbot import MentalHealthChatbot
 from .models import Conversation
 
-# Create a chatbot instance
-chatbot_instance = MentalHealthChatbot()
-
 def get_session_id(request):
     """
     Helper function to get or create an anonymous session ID.
@@ -57,6 +54,8 @@ def chatbot_response(request):
         session_id = get_session_id(request)
 
         # Get the bot's response
+        chatbot_instance = MentalHealthChatbot(session_id=session_id)
+
         bot_reply = chatbot_instance.mh_respond(user_message)
         
         # Save the conversation to the database
