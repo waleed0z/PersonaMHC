@@ -1,3 +1,7 @@
-from django.contrib import admin
+# your_app_name/admin.py
 
-# Register your models here.
+from django.contrib import admin
+from .models import Conversation
+
+# Register your model with the admin site
+admin.site.register(Conversation)
